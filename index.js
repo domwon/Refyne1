@@ -25,12 +25,17 @@ for(var i = 0; i < 9; i++)
     }
 
 //Checking to see if surrounding boxes are able to connect
-checkRight(arrObjects);
-checkLeft(arrObjects);
-checkUp(arrObjects);
-checkDown(arrObjects);
+function totalBoxesUsed() {     //checks how many boxes are used
+    var n = 1;
+    checkRight(arrObjects, n);
+}
 
-function checkRight(arrObjects) {
+totalBoxesUsed();
+
+
+
+
+function checkRight(arrObjects, n) {
     console.log("This will check to see if the square to the right is filled.");
     for(var i = 0; i < arrObjects.length/3; i++)
         {
@@ -39,13 +44,15 @@ function checkRight(arrObjects) {
                     if(arrObjects[3*i + j + 1].type != "empty")
                        {
                             console.log(arrObjects[3*i + j].id + " will connect to " + arrObjects[3*i + j + 1].id);
+                           n++;
                        }
                 }
         }
     console.log("------------------------");
+    checkLeft(arrObjects, n);
 }
 
-function checkLeft(arrObjects) {
+function checkLeft(arrObjects, n) {
     console.log("This will check to see if the square to the left is filled.");
     for(var i = 0; i < arrObjects.length/3; i++)
         {
@@ -54,13 +61,15 @@ function checkLeft(arrObjects) {
                     if(arrObjects[3*i + j - 1].type != "empty")
                        {
                             console.log(arrObjects[3*i + j].id + " will connect to " + arrObjects[3*i + j - 1].id);
+                           n++;
                        }
                 }
         }
     console.log("------------------------");
+    checkUp(arrObjects, n);
 }
 
-function checkUp(colArr) {
+function checkUp(arrObjects, n) {
     console.log("This will check to see if the square above is filled.");
     for(var i = 1; i < arrObjects.length/3; i++)
         {
@@ -69,13 +78,15 @@ function checkUp(colArr) {
                     if(arrObjects[3*i + j - 3].type != "empty")
                        {
                             console.log(arrObjects[3*i + j].id + " will connect to " + arrObjects[3*i + j - 3].id);
+                           n++;
                        }
                 }
         }
     console.log("------------------------");
+    checkDown(arrObjects, n);
 }
 
-function checkDown(colArr) {
+function checkDown(arrObjects, n) {
     console.log("This will check to see if the square below is filled.");
     for(var i = 0; i < arrObjects.length/3 - 1; i++)
         {
@@ -84,6 +95,7 @@ function checkDown(colArr) {
                     if(arrObjects[3*i + j].type != "empty")
                        {
                             console.log(arrObjects[3*i + j].id + " will connect to " + arrObjects[3*i + j + 3].id);
+                           n++;
                        }
                 }
         }
