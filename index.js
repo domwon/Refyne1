@@ -16,7 +16,7 @@ function getY(id) {
     return parseInt((id/3));
 }
 
-//Creating boxes and pushing to array "arrObjects"
+//Create  boxes and push to array "arrObjects"
 for(var i = 0; i < 9; i++)
     {
         var id = document.getElementById(i+1).id;
@@ -24,18 +24,13 @@ for(var i = 0; i < 9; i++)
         arrObjects.push(newBox);
     }
 
-//Checking to see if surrounding boxes are able to connect
-function totalBoxesUsed() {     //checks how many boxes are used
-    var n = 1;
-    checkRight(arrObjects, n);
-}
+//Check to see if surrounding boxes are able to connect
+checkRight(arrObjects);
+checkLeft(arrObjects);
+checkUp(arrObjects);
+checkDown(arrObjects);
 
-totalBoxesUsed();
-
-
-
-
-function checkRight(arrObjects, n) {
+function checkRight(arrObjects) {
     console.log("This will check to see if the square to the right is filled.");
     for(var i = 0; i < arrObjects.length/3; i++)
         {
@@ -44,15 +39,13 @@ function checkRight(arrObjects, n) {
                     if(arrObjects[3*i + j + 1].type != "empty")
                        {
                             console.log(arrObjects[3*i + j].id + " will connect to " + arrObjects[3*i + j + 1].id);
-                           n++;
                        }
                 }
         }
     console.log("------------------------");
-    checkLeft(arrObjects, n);
 }
 
-function checkLeft(arrObjects, n) {
+function checkLeft(arrObjects) {
     console.log("This will check to see if the square to the left is filled.");
     for(var i = 0; i < arrObjects.length/3; i++)
         {
@@ -61,15 +54,13 @@ function checkLeft(arrObjects, n) {
                     if(arrObjects[3*i + j - 1].type != "empty")
                        {
                             console.log(arrObjects[3*i + j].id + " will connect to " + arrObjects[3*i + j - 1].id);
-                           n++;
                        }
                 }
         }
     console.log("------------------------");
-    checkUp(arrObjects, n);
 }
 
-function checkUp(arrObjects, n) {
+function checkUp(colArr) {
     console.log("This will check to see if the square above is filled.");
     for(var i = 1; i < arrObjects.length/3; i++)
         {
@@ -78,15 +69,13 @@ function checkUp(arrObjects, n) {
                     if(arrObjects[3*i + j - 3].type != "empty")
                        {
                             console.log(arrObjects[3*i + j].id + " will connect to " + arrObjects[3*i + j - 3].id);
-                           n++;
                        }
                 }
         }
     console.log("------------------------");
-    checkDown(arrObjects, n);
 }
 
-function checkDown(arrObjects, n) {
+function checkDown(colArr) {
     console.log("This will check to see if the square below is filled.");
     for(var i = 0; i < arrObjects.length/3 - 1; i++)
         {
@@ -95,9 +84,37 @@ function checkDown(arrObjects, n) {
                     if(arrObjects[3*i + j].type != "empty")
                        {
                             console.log(arrObjects[3*i + j].id + " will connect to " + arrObjects[3*i + j + 3].id);
-                           n++;
                        }
                 }
         }
     console.log("------------------------");
+}
+
+
+/* Drag and Drop Functions */
+var pipeNum = 1, valveNum = 1, heaterNum = 1;
+var pipeContainer = document.getElementById("pipe-container");
+var valveContainer = document.getElementById("valve-container");
+var heaterContainer = document.getElementById("heater-container");
+
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+	ev.dataTransfer.setData("text", ev.target.id);
+	
+}
+
+function drop(ev) {
+	ev.preventDefault();
+	var data = ev.dataTransfer.getData("text");
+	ev.target.innerHTML="";
+	ev.target.appendChild(document.getElementById(data));
+	
+	if (data.startsWith("pipe") && pipeContainer.childNodes.length === 1) {
+		pipeNum ++;
+		pipeContainer.innerHTML = "<div id='pipe" + pipeNum + "' class='pipe element' draggable='true' ondragstart='drag(event)'></div>";
+	} 
 }

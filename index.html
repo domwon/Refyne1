@@ -5,21 +5,47 @@
 	</head>
 	<body>
 		<div id="titleDiv">
-			<h1>Operator</h1>
+			<h1>Site under construction.</h1>
 		</div>
-		<h3>Site under construction.</h3>
-		<div class="wrapper">
-			<div class="input">Input</div>
-			<div class="output">Output</div>
-			<div class="one" id="1">1</div>
-			<div class="two" id="2">2</div>
-			<div class="three" id="3">3</div>
-			<div class="four" id="4">4</div>
-			<div class="five" id="5">5</div>
-			<div class="six" id="6">6</div>
-			<div class="seven" id="7">7</div>
-			<div class="eight" id="8">8</div>
-			<div class="nine" id="9">9</div>
+		<div id="grid">
+			<div id="tl-corner"class="gridSquare">TL</div>
+			<div id="top1"class="gridSquare">T1</div>
+			<div id="top2"class="gridSquare">T2</div>
+			<div id="top3"class="gridSquare">T3</div>
+			<div id="tr-corner"class="gridSquare">TR</div>
+			<div id="left1"class="gridSquare">L1</div>
+			<div id="1"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)">1</div>
+			<div id="2"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)">2</div>
+			<div id="3"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)">3</div>
+			<div id="right1"class="gridSquare">R1</div>
+			<div id="left2"class="gridSquare">L2</div>
+			<div id="4"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)">4</div>
+			<div id="5"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)">5</div>
+			<div id="6"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)">6</div>
+			<div id="right2"class="gridSquare">R2</div>
+			<div id="left3"class="gridSquare">L3</div>
+			<div id="7"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)">7</div>
+			<div id="8"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)">8</div>
+			<div id="9" class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)">9</div>
+			<div id="right3"class="gridSquare">R3</div>
+			<div id="bl-corner"class="gridSquare">BL</div>
+			<div id="bottom1"class="gridSquare">B1</div>
+			<div id="bottom2"class="gridSquare">B2</div>
+			<div id="bottom3"class="gridSquare">B3</div>
+			<div id="br-corner"class="gridSquare">Br</div>
+			
+		</div>
+		
+		<div id="powerup-bar" class="center">
+			<div id="pipe-container" class="powerup-container" ondrop="drop(event)" ondragover="allowDrop(event)">
+				<div id="pipe1" class="pipe element" draggable="true"ondragstart="drag(event)"></div>
+			</div>
+			<div id="valve-container" class="powerup-container" ondrop="drop(event)" ondragover="allowDrop(event)">
+				<div id="valve1" class="valve element" draggable="true"ondragstart="drag(event)"></div>
+			</div>
+			<div id="heater-container" class="powerup-container" ondrop="drop(event)" ondragover="allowDrop(event)">
+				<div id="heater1" class="heater element" draggable="true"ondragstart="drag(event)"></div>
+			</div>
 		</div>
 	</body>
     <script src="index.js"></script>

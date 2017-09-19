@@ -6,68 +6,70 @@ body {
 #titleDiv {
 	
 }
-* {box-sizing: border-box;}
-.wrapper {
-  max-width: 940px;
-  margin: 0 auto;
+h1 {
+	font-size: 5vmin;
 }
-
-.wrapper > div {
-  border: 2px solid rgb(233,171,88);
-  border-radius: 5px;
-  background-color: rgba(233,171,88,.5);
-  padding: 1em;
-  color: white;
+.center, .gridSquare, .powerup-container {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-}.wrapper {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 10px;
-  grid-auto-rows: minmax(100px, auto);
 }
-.input {
-	grid-column: 1;
-	grid-row: 2;
+
+/* Grid */
+#grid {
+	width: 80vmin;
+	height: 80vmin;
+	background-color: #232323;
+	margin: auto;
 }
-.output {
-	grid-column: 5;
-	grid-row: 4;
+.gridSquare {
+	width: 15vmin;
+	height: 15vmin;
+	outline: 0.5vmin solid white;
+	float: left;
+	margin: 0.5vmin;
 }
-.one {
-  grid-column: 2;
-  grid-row: 2;
+
+/* Power Ups */
+#powerup-bar {
+	width: 60vmin;
+	height: 20vmin;
+	margin: 2vmin auto;
+	outline: 0.5vmin solid white;
 }
-.two { 
-  grid-column: 3;
-  grid-row: 2;
+.powerup-container {
+	width: 15vmin;
+	height: 15vmin;
+	float: left;
+	outline: 0.5vmin solid white;
 }
-.three {
-  grid-column: 4;
-  grid-row: 2;
+.pipe {
+	width: 10vmin;
+	height: 10vmin;
+	background-color: dodgerblue;
+	cursor: pointer;
 }
-.four {
-  grid-column: 2;
-  grid-row: 3;
+
+.valve {
+	width: 10vmin;
+	height: 10vmin;
+	background-color: yellow;
+	cursor: pointer;
 }
-.five {
-  grid-column: 3;
-  grid-row: 3;
+
+.heater {
+	width: 10vmin;
+	height: 10vmin;
+	background-color: firebrick;
+	cursor: pointer;
 }
-.six {
-  grid-column: 4;
-  grid-row: 3;
+.element {
+	transition: 0.2s;
+	margin: 0 auto;
 }
-.seven {
-  grid-column: 2;
-  grid-row: 4;
+.element:hover {
+	opacity: 0.5;
 }
-.eight {
-  grid-column: 3;
-  grid-row: 4;
-}
-.nine {
-  grid-column: 4;
-  grid-row: 4;
+.element:active {
+	opacity: 0.75;
 }
