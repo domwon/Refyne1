@@ -1,4 +1,5 @@
 var arrObjects = [];
+var arrPlaced = [];
 
 //Box Constructor
 function boxObject(id, type, x, y) {
@@ -6,6 +7,12 @@ function boxObject(id, type, x, y) {
     this.type = type;
     this.ycoord = y;
     this.xcoord = x;
+    this.connect = false;
+    this.pressure = 0;
+    this.temperature = 0;
+    //TODO: add flow rate for valves?
+    this.connectNum = 0;    //pipes and heaters can have max of 2 | valves can have max of 3
+    this.highlight = false;
 }
 
 function getX(id) {
@@ -20,76 +27,145 @@ function getY(id) {
 for(var i = 0; i < 9; i++)
     {
         var id = document.getElementById(i+1).id;
-        var newBox = new boxObject(id, "empty1", getX(i), getY(i));
+        var newBox = new boxObject(id, "empty", getX(i), getY(i));
         arrObjects.push(newBox);
     }
 
-//Check to see if surrounding boxes are able to connect
-checkRight(arrObjects);
-checkLeft(arrObjects);
-checkUp(arrObjects);
-checkDown(arrObjects);
-
-function checkRight(arrObjects) {
-    console.log("This will check to see if the square to the right is filled.");
-    for(var i = 0; i < arrObjects.length/3; i++)
+//Checking surrounding boxes if drop is valid
+function checkRight(currentObject)
+{
+    for(var i = 0; i < arrObjects.length; i++)
         {
-            for(var j = 0; j < arrObjects.length/3 - 1; j++)
+            if(arrObjects[i].xcoord == currentObject.xcoord + 1 && arrObjects[i].ycoord == currentObject.ycoord)
                 {
-                    if(arrObjects[3*i + j + 1].type != "empty")
-                       {
-                            console.log(arrObjects[3*i + j].id + " will connect to " + arrObjects[3*i + j + 1].id);
-                       }
+                    var testObject = arrObjects[i];
+                    if(testObject.type != "empty")
+                        {
+//                            testObject.connectNum++;
+//                            testObject.connect = true;
+//                            currentObject.connectNum++;
+//                            currentObject.connect = true;                            
+//                            if((((testObject.type.startsWith("pipe") || testObject.type.startsWith("heater")) && testObject.connectNum > 2) || (testObject.type.startsWith("valve") && testObject.connectNum > 3)) || (((currentObject.type.startsWith("pipe") || currentObject.type.startsWith("heater")) && currentObject.connectNum > 2) || (currentObject.type.startsWith("valve") && currentObject.connectNum > 3)))
+//                                {
+//                                    adjustBox(testObject);
+//                                    return 0;
+//                                }
+                            
+                        }
+                        else
+                            {
+                                testObject.highlight = true;
+                                return 1;
+                            }
                 }
         }
-    console.log("------------------------");
+
 }
 
-function checkLeft(arrObjects) {
-    console.log("This will check to see if the square to the left is filled.");
-    for(var i = 0; i < arrObjects.length/3; i++)
+function checkLeft(currentObject)
+{
+    for(var i = 0; i < arrObjects.length; i++)
         {
-            for(var j = 1; j < arrObjects.length/3; j++)
+            if(arrObjects[i].xcoord == currentObject.xcoord - 1 && arrObjects[i].ycoord == currentObject.ycoord)
                 {
-                    if(arrObjects[3*i + j - 1].type != "empty")
-                       {
-                            console.log(arrObjects[3*i + j].id + " will connect to " + arrObjects[3*i + j - 1].id);
-                       }
+                    var testObject = arrObjects[i];
+                    if(testObject.type != "empty")
+                        {
+//                            testObject.connectNum++;
+//                            testObject.connect = true;
+//                            currentObject.connectNum++;
+//                            currentObject.connect = true;                            
+//                            if((((testObject.type.startsWith("pipe") || testObject.type.startsWith("heater")) && testObject.connectNum > 2) || (testObject.type.startsWith("valve") && testObject.connectNum > 3)) || (((currentObject.type.startsWith("pipe") || currentObject.type.startsWith("heater")) && currentObject.connectNum > 2) || (currentObject.type.startsWith("valve") && currentObject.connectNum > 3)))
+//                                {
+//                                    adjustBox(testObject);
+//                                    return 0;
+//                                }
+                            
+                        }
+                    else
+                        {
+                            testObject.highlight = true;
+                            return 1;
+                        }
                 }
         }
-    console.log("------------------------");
 }
 
-function checkUp(colArr) {
-    console.log("This will check to see if the square above is filled.");
-    for(var i = 1; i < arrObjects.length/3; i++)
+function checkUp(currentObject)
+{
+    for(var i = 0; i < arrObjects.length; i++)
         {
-            for(var j = 0; j < arrObjects.length/3; j++)
+            if(arrObjects[i].xcoord == currentObject.xcoord && arrObjects[i].ycoord == currentObject.ycoord - 1)
                 {
-                    if(arrObjects[3*i + j - 3].type != "empty")
-                       {
-                            console.log(arrObjects[3*i + j].id + " will connect to " + arrObjects[3*i + j - 3].id);
-                       }
+                    var testObject = arrObjects[i];
+                    if(testObject.type != "empty")
+                        {
+//                            testObject.connectNum++;
+//                            testObject.connect = true;
+//                            currentObject.connectNum++;
+//                            currentObject.connect = true;                            
+//                            if((((testObject.type.startsWith("pipe") || testObject.type.startsWith("heater")) && testObject.connectNum > 2) || (testObject.type.startsWith("valve") && testObject.connectNum > 3)) || (((currentObject.type.startsWith("pipe") || currentObject.type.startsWith("heater")) && currentObject.connectNum > 2) || (currentObject.type.startsWith("valve") && currentObject.connectNum > 3)))
+//                                {
+//                                    adjustBox(testObject);
+//                                    return 0;
+//                                }
+                            
+                        }
+                    else
+                        {
+                            testObject.highlight = true;
+                            return 1;
+                        }
                 }
         }
-    console.log("------------------------");
 }
 
-function checkDown(colArr) {
-    console.log("This will check to see if the square below is filled.");
-    for(var i = 0; i < arrObjects.length/3 - 1; i++)
+
+function checkDown(currentObject)
+{
+    for(var i = 0; i < arrObjects.length; i++)
         {
-            for(var j = 0; j < arrObjects.length/3; j++)
+            if(arrObjects[i].xcoord == currentObject.xcoord && arrObjects[i].ycoord == currentObject.ycoord + 1)
                 {
-                    if(arrObjects[3*i + j].type != "empty")
-                       {
-                            console.log(arrObjects[3*i + j].id + " will connect to " + arrObjects[3*i + j + 3].id);
-                       }
+                    var testObject = arrObjects[i];
+                    if(testObject.type != "empty")
+                        {
+//                            testObject.connectNum++;
+//                            testObject.connect = true;
+//                            currentObject.connectNum++;
+//                            currentObject.connect = true;                            
+//                            if((((testObject.type.startsWith("pipe") || testObject.type.startsWith("heater")) && testObject.connectNum > 2) || (testObject.type.startsWith("valve") && testObject.connectNum > 3)) || (((currentObject.type.startsWith("pipe") || currentObject.type.startsWith("heater")) && currentObject.connectNum > 2) || (currentObject.type.startsWith("valve") && currentObject.connectNum > 3)))
+//                                {
+//                                    adjustBox(testObject);
+//                                    return 0;
+//                                }
+                            
+                        }
+                    else
+                        {
+                            testObject.highlight = true;
+                            return 1;
+                        }
                 }
         }
-    console.log("------------------------");
 }
 
+function eraseBox(currentObject)
+{
+    currentObject.connect = false;
+    currentObject.type = "empty";
+    currentObject.pressure = 0;
+    currentObject.temperature = 0;
+    currentObject.connectNum = 0;
+}
+function adjustBox(nearbyBox)
+{
+    nearbyBox.connect = false;
+    nearbyBox.pressure += 1;
+    nearbyBox.temperature -= 50;
+    nearbyBox.connectNum--;
+}
+console.log(arrObjects);
 
 /* Drag and Drop Functions */
 var pipeNum = 1, valveNum = 1, heaterNum = 1;
@@ -97,24 +173,132 @@ var pipeContainer = document.getElementById("pipe-container");
 var valveContainer = document.getElementById("valve-container");
 var heaterContainer = document.getElementById("heater-container");
 
-
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
 function drag(ev) {
 	ev.dataTransfer.setData("text", ev.target.id);
-	
 }
 
 function drop(ev) {
-	ev.preventDefault();
+    ev.preventDefault();
 	var data = ev.dataTransfer.getData("text");
 	ev.target.innerHTML="";
-	ev.target.appendChild(document.getElementById(data));
-	
-	if (data.startsWith("pipe") && pipeContainer.childNodes.length === 1) {
-		pipeNum ++;
-		pipeContainer.innerHTML = "<div id='pipe" + pipeNum + "' class='pipe element' draggable='true' ondragstart='drag(event)'></div>";
-	} 
+    var id = ev.currentTarget.id;
+    var idTest = document.getElementById(id);
+    
+    console.log(arrPlaced);
+    
+    //TODO: Setting input/output
+    arrObjects[6].highlight = true;     //should not be here
+    if(ev.currentTarget.hasChildNodes())    //Replacing values
+        {
+            console.log("Replacing previous element");
+            eraseBox(arrObjects[ev.currentTarget.id - 1]);
+            for(var i = 0; i < arrPlaced.length; i++)
+                {
+                    if(arrPlaced[i].id == ev.currentTarget.id)
+                        {
+                            var replacement = arrPlaced[i];
+                        }
+                }
+            console.log(replacement);
+            ev.currentTarget.removeChild(ev.currentTarget.childNodes[0]);
+            ev.currentTarget.appendChild(document.getElementById(data));
+            if(idTest.children[0].id.startsWith("pipe"))
+                {
+                    arrObjects[id - 1].type = idTest.children[0].id;
+                    arrObjects[id - 1].pressure = arrObjects[id - 1].pressure - 1;    //1 can be changed to any value
+                    replacement.type = idTest.children[0].id;
+                    replacement.pressure = -1;
+                }
+            if(idTest.children[0].id.startsWith("heater"))
+                {
+                    arrObjects[id - 1].type = idTest.children[0].id;
+                    arrObjects[id - 1].pressure = arrObjects[id - 1].pressure - 1;
+                    arrObjects[id - 1].temperature = arrObjects[id - 1].temperature + 50;    //50 can be changed to any value
+                    replacement.type = idTest.children[0].id;
+                    replacement.pressure = -1;
+                    replacement.temperature = 50;
+                }
+            if(idTest.children[0].id.startsWith("valve"))
+                {
+                    arrObjects[id - 1].type = idTest.children[0].id;
+                    arrObjects[id - 1].pressure = -1;
+                    replacement.type = idTest.children[0].id;
+                    replacement.pressure = -1;
+                    //TODO
+                }
+            console.log(arrPlaced);
+            var lastPlaced = arrPlaced.length - 1;
+            arrPlaced[lastPlaced].highlight = false;
+        }
+    else if(arrObjects[ev.currentTarget.id - 1].highlight == false)     //Invalid box
+        {
+            alert("This is not a highlighted box!");
+            eraseBox(arrObjects[ev.currentTarget.id - 1]);
+            ev.currentTarget.removeChild(ev.currentTarget.childNodes[0]);
+        }
+
+    else    //No error, push value
+        {
+            ev.target.appendChild(document.getElementById(data));
+            if(idTest.children[0].id.startsWith("pipe"))
+                {
+                    arrObjects[id - 1].type = idTest.children[0].id;
+                    arrObjects[id - 1].pressure = arrObjects[id - 1].pressure - 1;    //1 can be changed to any value
+                }
+            if(idTest.children[0].id.startsWith("heater"))
+                {
+                    arrObjects[id - 1].type = idTest.children[0].id;
+                    arrObjects[id - 1].pressure = arrObjects[id - 1].pressure - 1;
+                    arrObjects[id - 1].temperature = arrObjects[id - 1].temperature + 50;    //50 can be changed to any value
+                }
+            if(idTest.children[0].id.startsWith("valve"))
+                {
+                    arrObjects[id - 1].type = idTest.children[0].id;
+                    arrObjects[id - 1].pressure = arrObjects[id - 1].pressure - 1;
+                    //TODO
+                }
+            arrPlaced.push(arrObjects[id - 1]);
+            console.log(arrPlaced);
+            var lastPlaced = arrPlaced.length - 1;
+            arrPlaced[lastPlaced].highlight = false;
+        }
+
+    //To reset all highlight values to false after each drop
+    for(var i = 0; i < arrObjects.length; i++)
+        {
+            arrObjects[i].highlight = false;
+        }
+    checkRight(arrPlaced[lastPlaced]);
+    checkLeft(arrPlaced[lastPlaced]);
+    checkUp(arrPlaced[lastPlaced]);
+    checkDown(arrPlaced[lastPlaced]);
+    
+    //Replacing powerup container
+    var container = document.getElementById("powerup-bar");
+    for(var i = 0; i < 3; i++)
+        {
+            if(container.children[i].children[0] == undefined)
+                {
+                    if(container.children[i].id.startsWith("pipe"))
+                        {
+                            pipeNum++;
+                            pipeContainer.innerHTML = "<div id='pipe" + pipeNum + "' class='pipe element' draggable='true' ondragstart='drag(event)'></div>";
+                        }
+                    else if(container.children[i].id.startsWith("heater"))
+                        {
+                            heaterNum++;
+                            heaterContainer.innerHTML = "<div id='heater" + heaterNum + "' class='heater element' draggable='true' ondragstart='drag(event)'></div>";
+                        }
+                    else if(container.children[i].id.startsWith("valve"))
+                        {
+                            valveNum++;
+                            valveContainer.innerHTML = "<div id='valve" + valveNum + "' class='valve element' draggable='true' ondragstart='drag(event)'></div>";
+                        }
+                }
+        }
+    console.log(arrObjects);
 }
