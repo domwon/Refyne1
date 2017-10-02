@@ -227,6 +227,29 @@ while(input == temp)
 output = temp;
 console.log(output);
 
+var inputPressure;
+var inputTemperature;
+var outputPressure;
+var outputTemperature;
+function checkSolution(arr)
+{
+    var finalPressure = inputPressure;
+    var finalTemperature = inputTemperature;
+    for(var i = 0; i < arr.length; i++)
+        {
+            finalPressure += arr[i].pressure;
+            finalTemperature += arr[i].temperature;
+        }
+    if(finalPressure == outputPressure && finalTemperature == outputTemperature)
+        {
+            alert("You won!");
+        }
+    else
+        {
+            alert("Sorry, that's not quite right.");
+        }
+}
+
 /* Drag and Drop Functions */
 var pipeNum = 1, valveNum = 1, heaterNum = 1;
 var pipeContainer = document.getElementById("pipe-container");
@@ -251,7 +274,10 @@ function drop(ev) {
     console.log(arrPlaced);
     
     //TODO: Setting input/output
-    input.highlight = true; 
+    console.log(input);
+    console.log(output);
+    input.highlight = true;
+    console.log(ev.currentTarget.id);
     if(ev.currentTarget.hasChildNodes())    //Replacing values
         {
             console.log("Replacing previous element");
@@ -325,6 +351,10 @@ function drop(ev) {
             console.log(arrPlaced);
             var lastPlaced = arrPlaced.length - 1;
             arrPlaced[lastPlaced].highlight = false;
+        }
+    if(ev.currentTarget.id == output.id)
+        {
+            checkSolution(arrPlaced);
         }
 
     //To reset all highlight values to false after each drop
