@@ -23,7 +23,7 @@ function getY(id) {
     return parseInt((id/3));
 }
 
-//Create  boxes and push to array "arrObjects"
+//Create boxes and push to array "arrObjects"
 for(var i = 0; i < 9; i++)
     {
         var id = document.getElementById(i+1).id;
@@ -59,7 +59,6 @@ function checkRight(currentObject)
                             }
                 }
         }
-
 }
 
 function checkLeft(currentObject)
@@ -158,6 +157,7 @@ function eraseBox(currentObject)
     currentObject.temperature = 0;
     currentObject.connectNum = 0;
 }
+
 function adjustBox(nearbyBox)
 {
     nearbyBox.connect = false;
@@ -166,6 +166,65 @@ function adjustBox(nearbyBox)
     nearbyBox.connectNum--;
 }
 console.log(arrObjects);
+
+//Random generator for input and output
+var input;
+var output;
+function randomGenerator()
+{
+    var arrayLetters = ["T", "L", "B", "R"];
+    var ranLetter = parseInt(Math.random()*arrayLetters.length);
+    console.log(ranLetter);
+    var ranNumber = parseInt(Math.random()*Math.sqrt(arrObjects.length));
+    console.log(ranNumber);
+    if(ranLetter == 0)
+        {
+            for(var i = 0; i < arrObjects.length; i++)
+                {
+                    if(arrObjects[i].ycoord == 0 && arrObjects[i].xcoord == ranNumber)
+                        {
+                            input = arrObjects[i];
+                        }
+                }
+        }
+    else if(ranLetter == 1)
+        {
+            for(var i = 0; i < arrObjects.length; i++)
+                {
+                    if(arrObjects[i].xcoord == 0 && arrObjects[i].ycoord == ranNumber)
+                        {
+                            input = arrObjects[i];
+                        }
+                }
+        }
+    else if(ranLetter == 2)
+        {
+            for(var i = 0; i < arrObjects.length; i++)
+                {
+                    if(arrObjects[i].ycoord == Math.sqrt(arrObjects.length) - 1 && arrObjects[i].xcoord == ranNumber)
+                        {
+                            input = arrObjects[i];
+                        }
+                }
+        }
+    else if(ranLetter == 3)
+        {
+            for(var i = 0; i < arrObjects.length; i++)
+                {
+                    if(arrObjects[i].xcoord == Math.sqrt(arrObjects.length) - 1 && arrObjects[i].ycoord == ranNumber)
+                        {
+                            input = arrObjects[i];
+                        }
+                }
+        }
+}
+randomGenerator();
+console.log(input);
+output = input;
+while(output == input)
+    {
+        randomGenerator()
+    }
 
 /* Drag and Drop Functions */
 var pipeNum = 1, valveNum = 1, heaterNum = 1;
@@ -191,7 +250,7 @@ function drop(ev) {
     console.log(arrPlaced);
     
     //TODO: Setting input/output
-    arrObjects[6].highlight = true;     //should not be here
+    input.highlight = true; 
     if(ev.currentTarget.hasChildNodes())    //Replacing values
         {
             console.log("Replacing previous element");
