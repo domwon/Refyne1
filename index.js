@@ -168,22 +168,21 @@ function adjustBox(nearbyBox)
 console.log(arrObjects);
 
 //Random generator for input and output
+var temp;
 var input;
 var output;
 function randomGenerator()
 {
     var arrayLetters = ["T", "L", "B", "R"];
     var ranLetter = parseInt(Math.random()*arrayLetters.length);
-    console.log(ranLetter);
     var ranNumber = parseInt(Math.random()*Math.sqrt(arrObjects.length));
-    console.log(ranNumber);
     if(ranLetter == 0)
         {
             for(var i = 0; i < arrObjects.length; i++)
                 {
                     if(arrObjects[i].ycoord == 0 && arrObjects[i].xcoord == ranNumber)
                         {
-                            input = arrObjects[i];
+                            temp = arrObjects[i];
                         }
                 }
         }
@@ -193,7 +192,7 @@ function randomGenerator()
                 {
                     if(arrObjects[i].xcoord == 0 && arrObjects[i].ycoord == ranNumber)
                         {
-                            input = arrObjects[i];
+                            temp = arrObjects[i];
                         }
                 }
         }
@@ -203,7 +202,7 @@ function randomGenerator()
                 {
                     if(arrObjects[i].ycoord == Math.sqrt(arrObjects.length) - 1 && arrObjects[i].xcoord == ranNumber)
                         {
-                            input = arrObjects[i];
+                            temp = arrObjects[i];
                         }
                 }
         }
@@ -213,18 +212,20 @@ function randomGenerator()
                 {
                     if(arrObjects[i].xcoord == Math.sqrt(arrObjects.length) - 1 && arrObjects[i].ycoord == ranNumber)
                         {
-                            input = arrObjects[i];
+                            temp = arrObjects[i];
                         }
                 }
         }
 }
 randomGenerator();
+input = temp;
 console.log(input);
-output = input;
-while(output == input)
+while(input == temp)
     {
         randomGenerator()
     }
+output = temp;
+console.log(output);
 
 /* Drag and Drop Functions */
 var pipeNum = 1, valveNum = 1, heaterNum = 1;
