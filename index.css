@@ -2,6 +2,7 @@ body {
 	background-color: #323232;
 	color: white;
 	text-align: center;
+    font-family: sans-serif
 }
 #titleDiv {
 	
@@ -9,7 +10,7 @@ body {
 h1 {
 	font-size: 5vmin;
 }
-.center, .gridSquare, .powerup-container {
+.center, .gridSquare, .invisibleSquare, .powerup-container {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -19,30 +20,40 @@ h1 {
 #grid {
 	width: 80vmin;
 	height: 80vmin;
-	background-color: #232323;
+/*	background-color: white;*/
 	margin: auto;
 }
-.gridSquare {
+.gridSquare, .invisibleSquare {
 	width: 15vmin;
 	height: 15vmin;
-	outline: 0.5vmin solid white;
 	float: left;
 	margin: 0.5vmin;
+    border-radius: 1vmin;
 }
-
+.gridSquare {
+/*    outline: 0.5vmin solid white;*/
+    background-color: #232323;
+}
+.invisibleSquare {
+    opacity: 0.5;
+}
+.highlighted {
+    background-color: lightgray;
+    opacity: 0.5;
+}
 /* Power Ups */
 #powerup-bar {
 	width: 60vmin;
 	height: 20vmin;
 	margin: 2vmin auto;
-	outline: 0.5vmin solid white;
+/*	outline: 0.5vmin solid white;*/
 }
 .powerup-container {
 	width: 15vmin;
 	height: 15vmin;
 	float: left;
-	outline: 0.5vmin solid white;
-}
+/*	outline: 0.5vmin solid white;*/
+} 
 .pipe {
 	width: 10vmin;
 	height: 10vmin;
@@ -53,7 +64,7 @@ h1 {
 .valve {
 	width: 10vmin;
 	height: 10vmin;
-	background-color: yellow;
+	background-color: lawngreen;
 	cursor: pointer;
 }
 
@@ -66,6 +77,7 @@ h1 {
 .element {
 	transition: 0.2s;
 	margin: 0 auto;
+    border-radius: 1vmin;
 }
 .element:hover {
 	opacity: 0.5;
