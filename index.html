@@ -5,7 +5,23 @@
 	</head>
 	<body>
 		<div id="titleDiv">
-			<h1>REFYNE</h1>
+			<div>
+                <div class="btnContainer">
+                    <div id="resetBtn" class="element" onclick="completeReset();">
+                        <div id="undoSymbol">&#9850;</div>
+                    </div>
+                </div>
+                <div class="btnContainer">
+                    <div id="undoBtn" class="element" onclick="undo();">
+                        <div id="undoSymbol">&#8634;</div>
+                    </div>
+                </div>
+                <div class="btnContainer">
+                    <div id="checkBtn" class="element" onclick="checkSolution();">
+                        <div id="checkSymbol">&#10003;</div>
+                    </div>
+                </div>
+            </div>
 		</div>
 		<div id="grid">
 			<div id="tl-corner"class="invisibleSquare"></div>
@@ -37,18 +53,32 @@
 		</div>
 		
 		<div id="powerup-bar" class="center">
-			<div id="pipe-container" class="powerup-container">
-				<div id="pipe1" class="pipe element" draggable="true"ondragstart="drag(event)"></div>
+			<div id="bluePipeContainer" class="powerup-container">
+				<div id="bluePipe1" class="bluePipe element" draggable="true" ondragstart="drag(event)">
+                </div>
 			</div>
-			<div id="valve-container" class="powerup-container">
-				<div id="valve1" class="valve element" draggable="true"ondragstart="drag(event)"></div>
+			<div id="greenPipeContainer" class="powerup-container">
+				<div id="greenPipe1" class="greenPipe element" draggable="true" ondragstart="drag(event)">
+                </div>
 			</div>
-			<div id="heater-container" class="powerup-container">
-				<div id="heater1" class="heater element" draggable="true"ondragstart="drag(event)"></div>
-			</div>
-            <div id="trash-container" class="powerup-container" ondrop="drop(event)" ondragover="allowDrop(event)">
+			<div id="heaterContainer" class="powerup-container">
+				<div id="heater1" class="heater element" draggable="true" ondragstart="drag(event)">
+                    <div>&#9832;</div>
+                </div>
 			</div>
 		</div>
+        
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p id="messageDiv"></p>
+            </div>
+
+        </div>
+        
+        
 	</body>
     <script src="index.js"></script>
 </html>
