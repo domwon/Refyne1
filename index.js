@@ -336,6 +336,8 @@ function drop(ev) {
         }
         
         // Rehighlight boxes
+        console.log(currBox.id);
+        console.log(output.id);
         if (currBox.id != output.id) {
             
             console.log("Output not reached");
@@ -463,11 +465,15 @@ function transferProperties(boxID, element) {
 
 //Slider functionality for heaters
 var slider = document.getElementById("slider");
-var output = document.getElementById("value");
-output.innerHTML = slider.value*10 + " C";
+var heaterOutput = document.getElementById("value");
+heaterOutput.innerHTML = slider.value*10 + " C";
 
 slider.oninput = function(){
-    output.innerHTML = this.value*10 + " C"; ;
+    heaterOutput.innerHTML = this.value*10 + " C"; 
+}
+
+function heaterSetting() {
+//    if()
 }
 
 //Function to highlight last element placed to be removed
