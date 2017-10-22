@@ -240,7 +240,7 @@ function checkSolution(arr) {
         openModal();
         
         // Complete reset board
-        completeReset();
+//        completeReset();
         
         // Hide checkBtn
         checkBtn.style.display = "none";
@@ -250,9 +250,25 @@ function checkSolution(arr) {
 
 // Function to completely reset game
 function completeReset() {
-    for (var i = 0; i < arrPlaced.length; i++) {
-            //TODO: redefine reset undo();
+    console.log(input);
+    var grid = document.getElementById("grid");
+    var squareArr = grid.getElementsByClassName("gridSquare");
+    for(var i = 0; i < arrObjects.length; i++)
+        {
+            if(squareArr[i].childNodes[0] != undefined)
+                {
+                    squareArr[i].innerHTML = '';               
+                }
+            arrObjects[i].type = "empty";
+            arrObjects[i].connect = false;
+            arrObjects[i].pressure = 0;
+            arrObjects[i].temperature = 0;
+            arrObjects[i].connectNum = 0;    //pipes and heaters can have max of 2 | valves can have max of 3
+            arrObjects[i].highlight = false;
         }
+    arrPlaced = [];
+    input.highlight = true;
+    highlightBoxes();
 }
 
 /* Drag and Drop Functions */
@@ -443,6 +459,15 @@ function transferProperties(boxID, element) {
         currBoxObj.temperature = 0;
         
     }
+}
+
+//Slider functionality for heaters
+var slider = document.getElementById("slider");
+var output = document.getElementById("value");
+output.innerHTML = slider.value*10 + " C";
+
+slider.oninput = function(){
+    output.innerHTML = this.value*10 + " C"; ;
 }
 
 //Function to highlight last element placed to be removed
