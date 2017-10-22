@@ -389,7 +389,7 @@ function replacePowerUp() {
                             
                 heaterNum++;
                 heaterContainer.innerHTML = "<div id='heater" + heaterNum + 
-                    "' class='heater element' draggable='true' ondragstart='drag(event)'><div>&#9832;</div></div>";
+                    "' class='heater element' draggable='true' ondragstart='drag(event) ' onclick = 'heaterSetting(event)'><div>&#9832;</div></div>";
             
             }
                     
@@ -466,14 +466,33 @@ function transferProperties(boxID, element) {
 //Slider functionality for heaters
 var slider = document.getElementById("slider");
 var heaterOutput = document.getElementById("value");
+var heatObject;
+var updatedHeat = slider.value*10;
 heaterOutput.innerHTML = slider.value*10 + " C";
 
 slider.oninput = function(){
     heaterOutput.innerHTML = this.value*10 + " C"; 
+    updatedHeat = this.value*10;
 }
 
-function heaterSetting() {
-//    if()
+var heaterControls = document.getElementById("heaterControls");
+heaterControls.style.display = "none";
+
+function heaterSetting(ev) {
+    var heaterElement = ev.target;
+    var parentNodeId = heaterElement.parentElement.id;
+    heatObject = parentNodeId - 1;
+    console.log(heatObject);
+
+    if(parentNodeId != "heaterContainer")
+        {
+            heaterControls.style.display = "flex";
+        }
+}
+
+function submitHeat() {
+    heaterControls.style.display = "none";
+    arrObjects[heatObject].temperature = updatedHeat;
 }
 
 //Function to highlight last element placed to be removed

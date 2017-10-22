@@ -23,10 +23,16 @@
                 </div>
             </div>
 		</div>
-        <div id = "slideContainer">
-            <input type = "range" min = "-5" max = "5" value = "50" id = "slider">
-            <p>Heater Temperature: <span id = "value"</span></p>
+        <div id = "heaterControls">
+            <div id = "sliderContainer">
+                <input type = "range" min = "-5" max = "5" value = "50" id = "slider">
+                <p>Heater Temperature: <span id = "value"></span></p>
+            </div> 
+            <div>
+                <button id = "heaterSubmit" onclick = "submitHeat()">Update Heater</button>
+            </div>
         </div>
+
 		<div id="grid">
 			<div id="tl-corner"class="invisibleSquare"></div>
 			<div id="T1"class="invisibleSquare"></div>
@@ -66,7 +72,7 @@
                 </div>
 			</div>
 			<div id="heaterContainer" class="powerup-container">
-				<div id="heater1" class="heater element" draggable="true" ondragstart="drag(event)" onclick="heaterSetting()">
+				<div id="heater1" class="heater element" draggable="true" ondragstart="drag(event)" onclick="heaterSetting(event)">
                     <div>&#9832;</div>
                 </div>
 			</div>
