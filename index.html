@@ -24,13 +24,9 @@
             </div>
 		</div>
         <div id = "heaterControls">
-            <div id = "sliderContainer">
-                <input type = "range" min = "-5" max = "5" value = "50" id = "slider">
-                <p>Heater Temperature: <span id = "value"></span></p>
-            </div> 
-            <div>
-                <button id = "heaterSubmit" onclick = "submitHeat()">Update Heater</button>
-            </div>
+            <input type = "range" min = "-50" max = "50" value = "50" step = "10" id = "slider">
+            <p id = "heaterDisplay"><b>Heater Temperature: <span id = "value"></span></b></p>
+            <button id = "heaterSubmit" onclick = "submitHeat()"><b>Update Heater</b></button>
         </div>
 
 		<div id="grid">

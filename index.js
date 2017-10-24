@@ -467,12 +467,12 @@ function transferProperties(boxID, element) {
 var slider = document.getElementById("slider");
 var heaterOutput = document.getElementById("value");
 var heatObject;
-var updatedHeat = slider.value*10;
-heaterOutput.innerHTML = slider.value*10 + " C";
+var updatedHeat = slider.value;
+heaterOutput.innerHTML = slider.value + " C";
 
 slider.oninput = function(){
-    heaterOutput.innerHTML = this.value*10 + " C"; 
-    updatedHeat = this.value*10;
+    heaterOutput.innerHTML = this.value + " C"; 
+    updatedHeat = this.value;
 }
 
 var heaterControls = document.getElementById("heaterControls");
@@ -492,7 +492,9 @@ function heaterSetting(ev) {
 
 function submitHeat() {
     heaterControls.style.display = "none";
-    arrObjects[heatObject].temperature = updatedHeat;
+    console.log("Element in array is " + heatObject);
+    console.log("New heat is: " + updatedHeat);
+    arrObjects[heatObject].temperature = parseInt(updatedHeat);
 }
 
 //Function to highlight last element placed to be removed

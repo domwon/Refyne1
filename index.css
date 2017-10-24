@@ -176,3 +176,63 @@ h2 {
     text-decoration: none;
     cursor: pointer;
 }
+
+/* The Heater Slider */
+#heaterControls {
+    position: absolute;
+    top: 43%;
+    right: 10%;
+    height: 350px;
+    width: 15%;
+    background-color: #232323;
+    border-radius: 1vmin;
+}
+#slider {
+    -webkit-transform: rotate(270deg);
+    outline: none;
+    border-radius: 5px;
+    position: absolute;
+    right: 35%;
+    top: 45%;
+    height: 35px;
+    width: 300px;
+    opacity: 0.8;
+    transition: opacity;
+    cursor: pointer;
+}
+#slider:hover {
+    opacity: 1;
+}
+#heaterDisplay {
+    position: relative;
+    top: 20%;
+    left: 25%;
+    width: 60%;
+    font-size: 24px;
+}
+#value {
+    position: absolute;
+    top: 20%;
+    max-width: 80%;
+    left: 40%;
+    font-size: 24px;
+}
+#heaterSubmit {
+    position: absolute;
+    left: 25%;
+    top: 75%;
+    background-color: orange;
+    color: white;
+    border: none;
+    margin: 0.5vmin;
+    border-radius: 1vmin;
+    width: 15vmin;
+	height: 5vmin;
+    cursor: pointer;
+    font-size: 20px;
+    transition-duration: 0.3s;
+}
+#heaterSubmit:hover {
+	opacity: 0.5;
+}
+
