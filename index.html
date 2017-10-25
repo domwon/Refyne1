@@ -23,11 +23,6 @@
                 </div>
             </div>
 		</div>
-        <div id = "heaterControls">
-            <input type = "range" min = "-50" max = "50" value = "50" step = "10" id = "slider">
-            <p id = "heaterDisplay"><b>Heater Temperature: <span id = "value"></span></b></p>
-            <button id = "heaterSubmit" onclick = "submitHeat()"><b>Update Heater</b></button>
-        </div>
 
 		<div id="grid">
 			<div id="tl-corner"class="invisibleSquare"></div>
@@ -68,22 +63,19 @@
                 </div>
 			</div>
 			<div id="heaterContainer" class="powerup-container">
-				<div id="heater1" class="heater element" draggable="true" ondragstart="drag(event)" onclick="heaterSetting(event)">
+				<div id="heater1" class="heater element" draggable="true" ondragstart="drag(event)" onclick="heaterSetting(this)">
                     <div>&#9832;</div>
                 </div>
 			</div>
 		</div>
         
         <div id="myModal" class="modal">
-
             <!-- Modal content -->
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <p id="messageDiv"></p>
+                <div id="messageDiv"></div>
             </div>
-
         </div>
-        
         
 	</body>
     <script src="index.js"></script>

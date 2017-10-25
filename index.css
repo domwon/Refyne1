@@ -178,49 +178,39 @@ h2 {
 }
 
 /* The Heater Slider */
-#heaterControls {
-    position: absolute;
-    top: 43%;
-    right: 10%;
-    height: 350px;
-    width: 15%;
-    background-color: #232323;
-    border-radius: 1vmin;
+#heaterControlsRightSide, #heaterControlsLeftSide {
+/*    border: 1vmin solid white;*/
+    display: inline-block;
+    height: 30vmin;
+    vertical-align: top;
+}
+.center-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:inherit;
 }
 #slider {
     -webkit-transform: rotate(270deg);
     outline: none;
-    border-radius: 5px;
-    position: absolute;
-    right: 35%;
-    top: 45%;
-    height: 35px;
-    width: 300px;
     opacity: 0.8;
     transition: opacity;
     cursor: pointer;
+    width: 20vmin;
+    height: 5vmin;
+    position: relative;
+    margin:auto;
 }
 #slider:hover {
     opacity: 1;
 }
 #heaterDisplay {
-    position: relative;
-    top: 20%;
-    left: 25%;
-    width: 60%;
-    font-size: 24px;
+    font-size: 3vmin;
 }
 #value {
-    position: absolute;
-    top: 20%;
-    max-width: 80%;
-    left: 40%;
-    font-size: 24px;
+    font-size: 3vmin;
 }
 #heaterSubmit {
-    position: absolute;
-    left: 25%;
-    top: 75%;
     background-color: orange;
     color: white;
     border: none;
@@ -229,10 +219,11 @@ h2 {
     width: 15vmin;
 	height: 5vmin;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 3vmin;
     transition-duration: 0.3s;
+    opacity: 0.8
 }
 #heaterSubmit:hover {
-	opacity: 0.5;
+	opacity: 1;
 }
 
