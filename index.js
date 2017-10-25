@@ -242,8 +242,9 @@ function checkSolution(arr) {
         // Complete reset board
         completeReset();
         
-        // Hide checkBtn
-        checkBtn.style.display = "none";
+        // Hide checkBtn & resetBtn
+        checkBtn.style.visibility = "hidden";
+        resetBtn.style.visibility = "hidden";
         
     }
 }
@@ -353,7 +354,7 @@ function drop(ev) {
             highlightBoxes();
             
             // Make checkBtn visible
-            checkBtn.style.display = "flex";
+            checkBtn.style.visibility = "visible";
             console.log("Output reached");
             
         }
@@ -364,7 +365,7 @@ function drop(ev) {
         
         // Display undoBtn & resetBtn if there's at least 1 element on grid
         if (arrPlaced.length == 1) {
-            resetBtn.style.display = "flex";
+            resetBtn.style.visibility = "visible";
         }
     }
     
@@ -540,7 +541,7 @@ function resetGame() {
     highlightBoxes();
     arrPlaced = [];
     moves = [];
-    resetBtn.style.display = "none";
+    resetBtn.style.visibility = "hidden";
 }
 
 // Get the modal

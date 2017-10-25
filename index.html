@@ -5,15 +5,65 @@
 	</head>
 	<body>
 		<div id="titleDiv">
-			<div>
+		</div>
+        
+        <div class="screen-section">
+            <div id="powerup-bar-wrapper" class="center">
+                <div id="powerup-bar">
+                    <div id="bluePipeContainer" class="powerup-container">
+                        <div id="bluePipe1" class="bluePipe element" draggable="true" ondragstart="drag(event)">
+                        </div>
+                    </div>
+                    <div id="greenPipeContainer" class="powerup-container">
+                        <div id="greenPipe1" class="greenPipe element" draggable="true" ondragstart="drag(event)">
+                        </div>
+                    </div>
+                    <div id="heaterContainer" class="powerup-container">
+                        <div id="heater1" class="heater element" draggable="true" ondragstart="drag(event)" onclick="heaterSetting(this)">
+                            <div>&#9832;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="screen-section">
+            <div id="grid">
+                <div id="tl-corner"class="invisibleSquare"></div>
+                <div id="T1"class="invisibleSquare"></div>
+                <div id="T2"class="invisibleSquare"></div>
+                <div id="T3"class="invisibleSquare"></div>
+                <div id="tr-corner"class="invisibleSquare"></div>
+                <div id="L1"class="invisibleSquare"></div>
+                <div id="1"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="2"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="3"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="R1"class="invisibleSquare"></div>
+                <div id="L2"class="invisibleSquare"></div>
+                <div id="4"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="5"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="6"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="R2"class="invisibleSquare"></div>
+                <div id="L3"class="invisibleSquare"></div>
+                <div id="7"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="8"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="9" class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="R3"class="invisibleSquare"></div>
+                <div id="bl-corner"class="invisibleSquare"></div>
+                <div id="B1"class="invisibleSquare"></div>
+                <div id="B2"class="invisibleSquare"></div>
+                <div id="B3"class="invisibleSquare"></div>
+                <div id="br-corner"class="invisibleSquare"></div>
+
+            </div>
+        </div>
+        
+        <div class="screen-section">
+
+            <div>
                 <div class="btnContainer">
                     <div id="resetBtn" class="element" onclick="completeReset();">
                         <div id="undoSymbol">&#9850;</div>
-                    </div>
-                </div>
-                <div class="btnContainer">
-                    <div id="undoBtn" class="element" onclick="undo();">
-                        <div id="undoSymbol">&#8634;</div>
                     </div>
                 </div>
                 <div class="btnContainer">
@@ -22,52 +72,7 @@
                     </div>
                 </div>
             </div>
-		</div>
-
-		<div id="grid">
-			<div id="tl-corner"class="invisibleSquare"></div>
-			<div id="T1"class="invisibleSquare"></div>
-			<div id="T2"class="invisibleSquare"></div>
-			<div id="T3"class="invisibleSquare"></div>
-			<div id="tr-corner"class="invisibleSquare"></div>
-			<div id="L1"class="invisibleSquare"></div>
-			<div id="1"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-			<div id="2"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-			<div id="3"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-			<div id="R1"class="invisibleSquare"></div>
-			<div id="L2"class="invisibleSquare"></div>
-			<div id="4"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-			<div id="5"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-			<div id="6"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-			<div id="R2"class="invisibleSquare"></div>
-			<div id="L3"class="invisibleSquare"></div>
-			<div id="7"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-			<div id="8"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-			<div id="9" class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-			<div id="R3"class="invisibleSquare"></div>
-			<div id="bl-corner"class="invisibleSquare"></div>
-			<div id="B1"class="invisibleSquare"></div>
-			<div id="B2"class="invisibleSquare"></div>
-			<div id="B3"class="invisibleSquare"></div>
-			<div id="br-corner"class="invisibleSquare"></div>
-			
-		</div>
-		
-		<div id="powerup-bar" class="center">
-			<div id="bluePipeContainer" class="powerup-container">
-				<div id="bluePipe1" class="bluePipe element" draggable="true" ondragstart="drag(event)">
-                </div>
-			</div>
-			<div id="greenPipeContainer" class="powerup-container">
-				<div id="greenPipe1" class="greenPipe element" draggable="true" ondragstart="drag(event)">
-                </div>
-			</div>
-			<div id="heaterContainer" class="powerup-container">
-				<div id="heater1" class="heater element" draggable="true" ondragstart="drag(event)" onclick="heaterSetting(this)">
-                    <div>&#9832;</div>
-                </div>
-			</div>
-		</div>
+        </div>
         
         <div id="myModal" class="modal">
             <!-- Modal content -->
