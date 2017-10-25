@@ -167,13 +167,13 @@ var inputTemperature;
 var outputPressure;
 var outputTemperature;
 var pressureDrop = 1;
-var tempInc = 50;
+var tempInc = 0;
 
 function randomProcessCond() {
     inputPressure = randInt(20, 30);
     inputTemperature = randInt(1, 4) * 50;
     outputPressure = inputPressure - randInt(5, 10);
-    outputTemperature = inputTemperature + randInt(0, 2) * 50;
+    outputTemperature = inputTemperature + randInt(0, 4) * 25;
 }
 
 function randInt(min,max) {
@@ -221,9 +221,9 @@ function checkSolution(arr) {
     if (finalPressure == outputPressure && finalTemperature == outputTemperature) {
         
         
-        messageDiv.innerHTML = "<br><h1 class='green'>You win!</h1><br>Final Conditions<br>P: " + 
+        messageDiv.innerHTML =  '<h1 class="green">You win!</h1><br>Final Conditions<br>P: ' + 
             finalPressure + "<br>T: " + finalTemperature + 
-            "<br><br>Required Conditions<br>P: " + outputPressure + "<br>T: " + outputTemperature;
+            '<br><br>Required Conditions<br>P: ' + outputPressure + '<br>T: ' + outputTemperature;
         openModal();
         userWin = true;
         
@@ -234,13 +234,13 @@ function checkSolution(arr) {
 //              "\n\nFinal Conditions\nP: " + finalPressure + "\nT: " + finalTemperature
 //             );
         
-        messageDiv.innerHTML = "<br><h1 class='red'>Try again!</h1><br>Final Conditions<br>P: " + 
+        messageDiv.innerHTML = "<h1 class='red'>Try again!</h1><br>Final Conditions<br>P: " + 
             finalPressure + "<br>T: " + finalTemperature + 
             "<br><br>Required Conditions<br>P: " + outputPressure + "<br>T: " + outputTemperature;
         openModal();
         
         // Complete reset board
-//        completeReset();
+        completeReset();
         
         // Hide checkBtn
         checkBtn.style.display = "none";
@@ -288,6 +288,8 @@ var oldElement;
 var newElement;
 function drop(ev) {
     currBox = ev.currentTarget;
+    
+    ev.draggable = false;
     console.log("Attempted to place element in Box " + currBox.id);
     var boxArrayLoc = currBox.id - 1;
     
@@ -303,6 +305,8 @@ function drop(ev) {
         ev.target.innerHTML="";
         newElement = document.getElementById(data);
         
+        // Disable further dragging of element
+        newElement.draggable = false;
 //        console.log(oldElement);
 
         // Replace an existing element with new element
@@ -389,7 +393,7 @@ function replacePowerUp() {
                             
                 heaterNum++;
                 heaterContainer.innerHTML = "<div id='heater" + heaterNum + 
-                    "' class='heater element' draggable='true' ondragstart='drag(event) ' onclick = 'heaterSetting(event)'><div>&#9832;</div></div>";
+                    "' class='heater element' draggable='true' ondragstart='drag(event) ' onclick = 'heaterSetting(this)'><div>&#9832;</div></div>";
             
             }
                     
@@ -464,37 +468,61 @@ function transferProperties(boxID, element) {
 }
 
 //Slider functionality for heaters
-var slider = document.getElementById("slider");
-var heaterOutput = document.getElementById("value");
+var slider;
+var heaterOutput;
 var heatObject;
-var updatedHeat = slider.value;
-heaterOutput.innerHTML = slider.value + " C";
-
-slider.oninput = function(){
-    heaterOutput.innerHTML = this.value + " C"; 
-    updatedHeat = this.value;
-}
-
-var heaterControls = document.getElementById("heaterControls");
-heaterControls.style.display = "none";
+var updatedHeat;
+var newHeaterPressure;
 
 function heaterSetting(ev) {
-    var heaterElement = ev.target;
-    var parentNodeId = heaterElement.parentElement.id;
+    var parentNodeId = ev.parentElement.id;
     heatObject = parentNodeId - 1;
     console.log(heatObject);
 
     if(parentNodeId != "heaterContainer")
         {
-            heaterControls.style.display = "flex";
+            messageDiv.innerHTML = '<div id="heaterControlsRightSide"><div class="center-wrapper">' +
+                '<div><div id = "heaterDisplay"><b>Heating Temp: <br><br><span id = "value"></span></b></div>' +
+                '<br><div><button id = "heaterSubmit" onclick = "submitHeat();"><b>Set</b></button>' +
+                '</div></div></div></div>' +
+                '<div id="heaterControlsLeftSide"><div class="center-wrapper">' +
+                '<input  id = "slider" type = "range" min = "0" max = "50" value = "0" step = "25">' +
+                '</div></div>';
+            openModal();
+            slider = document.getElementById("slider");
+            heaterOutput = document.getElementById("value");
+            updatedHeat = slider.value;
+            heaterOutput.innerHTML = slider.value + " C";
+            
+            slider.oninput = function(){
+                heaterOutput.innerHTML = this.value + " C"; 
+                updatedHeat = this.value;
+            }
         }
 }
 
 function submitHeat() {
-    heaterControls.style.display = "none";
+    newHeaterTemp = parseInt(updatedHeat);
+    modal.style.display = "none";
     console.log("Element in array is " + heatObject);
-    console.log("New heat is: " + updatedHeat);
-    arrObjects[heatObject].temperature = parseInt(updatedHeat);
+    
+    // Change pressure based on heater.
+    switch (newHeaterTemp) {
+        case 50:
+            newHeaterPressure = 1;
+            break;
+        case 25:
+            newHeaterPressure = 0;
+            break;
+        default: // newHeaterTemp = 0
+            newHeaterPressure = -1;
+            break;
+    }
+            arrObjects[heatObject].temperature = newHeaterTemp;
+            arrObjects[heatObject].pressure = newHeaterPressure;
+            console.log("New heater temperature is: " + newHeaterTemp);
+            console.log("New heater pressure is: " + newHeaterPressure);
+    
 }
 
 //Function to highlight last element placed to be removed
