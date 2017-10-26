@@ -2,6 +2,7 @@ var arrObjects = [];
 var arrPlaced = [];
 var lastPlaced;
 var currBox;
+var placeNum = 0;
 var userWin = false;
 
 // Assign HTML elements into variables 
@@ -21,6 +22,7 @@ function boxObject(id, type, x, y) {
     //TODO: add flow rate for valves?
     this.connectNum = 0;    //pipes and heaters can have max of 2 | valves can have max of 3
     this.highlight = false;
+    this.placeNum = 0;
 }
 
 // Functions to get coordinates of box object
@@ -116,13 +118,6 @@ function adjustBox(nearbyBox) {
     nearbyBox.connectNum--;
 }
 
-//Random generator for input and output
-var temp;
-var input;
-var output;
-var inputSideBoxID;
-var outputSideBoxID;
-
 // Function to generate random box location
 function randomLocation() {
     var arrayLetters = ["T", "L", "B", "R"];
@@ -162,6 +157,12 @@ function randomLocation() {
     return arrayLetters[ranLetter] + (ranNumber + 1).toString();
 }
 
+//Random generator for input and output
+var temp;
+var input;
+var output;
+var inputSideBoxID;
+var outputSideBoxID;
 var inputPressure;
 var inputTemperature;
 var outputPressure;
@@ -305,6 +306,7 @@ function drop(ev) {
         var data = ev.dataTransfer.getData("text");
         ev.target.innerHTML="";
         newElement = document.getElementById(data);
+        var source;
         
         // Disable further dragging of element
         newElement.draggable = false;
@@ -319,18 +321,20 @@ function drop(ev) {
             currBox.appendChild(newElement);
             
             // Transfer element properties to box object
-            transferProperties(currBox.id, newElement);
+            transferProperties(currBox.id, newElement, false);
             
             console.log("%cSUCCESS: Replaced " + oldElement.id + " in Box " + 
                         currBox.id + " with " + newElement.id, "color:green");
             
-        } else { //No error, push value
+//            source = getReplacedImgLink();
+            
+        } else { // Place new element
                 
             currBox.appendChild(newElement);
             newElement = currBox.children[0];
           
             // Transfer element properties to box object
-            transferProperties(currBox.id, newElement);
+            transferProperties(currBox.id, newElement, true);
             
             arrPlaced.push(arrObjects[currBox.id - 1]);
             lastPlaced = arrPlaced.length - 1;
@@ -338,6 +342,9 @@ function drop(ev) {
             
             console.log("%cSUCCESS: Placed " + newElement.id + 
                         " in Box " + currBox.id, "color:green");
+            
+//            source = getPlacedImgLink(currBox, lastPlaced);
+//            addBoxImg(currBox, source);
         }
         
         // Rehighlight boxes
@@ -381,19 +388,19 @@ function replacePowerUp() {
             if (container.children[i].id.startsWith("bluePipe")) {
                 
                 bluePipeNum++;
-                bluePipeContainer.innerHTML = "<div id='bluePipe" + bluePipeNum + 
+                bluePipeContainer.innerHTML = "<div id='bluePipe-" + bluePipeNum + 
                     "' class='bluePipe element' draggable='true' ondragstart='drag(event)'></div>";
                 
             } else if (container.children[i].id.startsWith("greenPipe")) {
                             
                 greenPipeNum++;
-                greenPipeContainer.innerHTML = "<div id='greenPipe" + greenPipeNum + 
+                greenPipeContainer.innerHTML = "<div id='greenPipe-" + greenPipeNum + 
                     "' class='greenPipe element' draggable='true' ondragstart='drag(event)'></div>";
             
             } else if (container.children[i].id.startsWith("heater")) {
                             
                 heaterNum++;
-                heaterContainer.innerHTML = "<div id='heater" + heaterNum + 
+                heaterContainer.innerHTML = "<div id='heater-" + heaterNum + 
                     "' class='heater element' draggable='true' ondragstart='drag(event) ' onclick = 'heaterSetting(this)'><div>&#9832;</div></div>";
             
             }
@@ -436,7 +443,7 @@ function rehighlight(box) {
 }
 
 // Function to transfer properties of element to box object
-function transferProperties(boxID, element) {
+function transferProperties(boxID, element, placement) {
     
     var boxObjectLoc = boxID - 1;
     var currBoxObj = arrObjects[boxObjectLoc];
@@ -466,64 +473,12 @@ function transferProperties(boxID, element) {
         currBoxObj.temperature = 0;
         
     }
-}
-
-//Slider functionality for heaters
-var slider;
-var heaterOutput;
-var heatObject;
-var updatedHeat;
-var newHeaterPressure;
-
-function heaterSetting(ev) {
-    var parentNodeId = ev.parentElement.id;
-    heatObject = parentNodeId - 1;
-    console.log(heatObject);
-
-    if(parentNodeId != "heaterContainer")
-        {
-            messageDiv.innerHTML = '<div id="heaterControlsRightSide"><div class="center-wrapper">' +
-                '<div><div id = "heaterDisplay"><b>Heating Temp: <br><br><span id = "value"></span></b></div>' +
-                '<br><div><button id = "heaterSubmit" onclick = "submitHeat();"><b>Set</b></button>' +
-                '</div></div></div></div>' +
-                '<div id="heaterControlsLeftSide"><div class="center-wrapper">' +
-                '<input  id = "slider" type = "range" min = "0" max = "50" value = "0" step = "25">' +
-                '</div></div>';
-            openModal();
-            slider = document.getElementById("slider");
-            heaterOutput = document.getElementById("value");
-            updatedHeat = slider.value;
-            heaterOutput.innerHTML = slider.value + " C";
-            
-            slider.oninput = function(){
-                heaterOutput.innerHTML = this.value + " C"; 
-                updatedHeat = this.value;
-            }
-        }
-}
-
-function submitHeat() {
-    newHeaterTemp = parseInt(updatedHeat);
-    modal.style.display = "none";
-    console.log("Element in array is " + heatObject);
     
-    // Change pressure based on heater.
-    switch (newHeaterTemp) {
-        case 50:
-            newHeaterPressure = 1;
-            break;
-        case 25:
-            newHeaterPressure = 0;
-            break;
-        default: // newHeaterTemp = 0
-            newHeaterPressure = -1;
-            break;
+    // Change placeNum in box obj if it's new placement
+    if (placement) {
+        placeNum ++;
+        currBoxObj.placeNum = placeNum;
     }
-            arrObjects[heatObject].temperature = newHeaterTemp;
-            arrObjects[heatObject].pressure = newHeaterPressure;
-            console.log("New heater temperature is: " + newHeaterTemp);
-            console.log("New heater pressure is: " + newHeaterPressure);
-    
 }
 
 //Function to highlight last element placed to be removed
@@ -565,4 +520,65 @@ span.onclick = function() {
         location.reload();
     }
     userWin = false;
+}
+
+//Slider functionality for heaters
+var slider;
+var heaterOutput;
+var heatObject;
+var updatedHeat;
+var newHeaterPressure;
+
+function heaterSetting(ev) {
+    var parentNodeId = ev.parentElement.id;
+    var oldTemp = arrObjects[parentNodeId-1].temperature;
+    heatObject = parentNodeId - 1;
+    console.log(heatObject);
+
+    if(parentNodeId != "heaterContainer")
+        {
+            messageDiv.innerHTML = '<div id="heaterControlsRightSide"><div class="center-wrapper">' +
+                '<div><div id = "heaterDisplay"><b>Heating Temp: <br><br><span id = "value"></span></b></div>' +
+                '<br><div><button id = "heaterSubmit" onclick = "submitHeat();"><b>Set</b></button>' +
+                '</div></div></div></div>' +
+                '<div id="heaterControlsLeftSide"><div class="center-wrapper">' +
+                '<input  id = "slider" type = "range" min = "0" max = "50" value = "' + oldTemp + '" step = "25">' +
+                '</div></div>';
+            openModal();
+            slider = document.getElementById("slider");
+            heaterOutput = document.getElementById("value");
+            updatedHeat = slider.value;
+            heaterOutput.innerHTML = slider.value + " C";
+            
+            slider.oninput = function(){
+                heaterOutput.innerHTML = this.value + " C"; 
+                updatedHeat = this.value;
+            }
+        }
+}
+
+function submitHeat() {
+    newHeaterTemp = parseInt(updatedHeat);
+    modal.style.display = "none";
+    console.log("Element in array is " + heatObject);
+    
+    // Change pressure based on heater.
+    switch (newHeaterTemp) {
+        case 50:
+            newHeaterPressure = 1;
+            break;
+        case 25:
+            newHeaterPressure = 0;
+            break;
+        default: // newHeaterTemp = 0
+            newHeaterPressure = -1;
+            break;
+    }
+    
+    // Update process conditions in backend
+    arrObjects[heatObject].temperature = newHeaterTemp;
+    arrObjects[heatObject].pressure = newHeaterPressure;
+    console.log("New heater temperature is: " + newHeaterTemp);
+    console.log("New heater pressure is: " + newHeaterPressure);
+    
 }

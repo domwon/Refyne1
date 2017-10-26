@@ -55,6 +55,7 @@ h2 {
 .gridSquare {
 /*    outline: 0.5vmin solid white;*/
     background-color: #232323;
+    transition-duration: 0.2s;
 }
 .invisibleSquare {
     opacity: 0.5;
@@ -115,6 +116,10 @@ h2 {
 .element:active {
 	opacity: 0.75;
 }
+.imgElement {
+    height: inherit;
+    width: inherit;
+}
 
 #checkBtn, #resetBtn {
     width: 10vmin;
@@ -161,7 +166,7 @@ h2 {
     padding: 2vmin;
     border: 1vmin solid #888;
     border-radius: 1vmin;
-    width: 80%;
+    width: 30%;
     color: white;
 }
 
@@ -194,17 +199,27 @@ h2 {
 #slider {
     -webkit-transform: rotate(270deg);
     outline: none;
-    opacity: 0.8;
+    opacity: 1;
     transition: opacity;
     cursor: pointer;
     width: 20vmin;
-    height: 5vmin;
+    height: 3vmin;
+    border-radius: 3vmin;
     position: relative;
     margin:auto;
+    background-color: lightgray;
+    -webkit-appearance: none;
+
 }
-#slider:hover {
-    opacity: 1;
+input[type=range]::-webkit-slider-thumb {
+    height: 8vmin;
+    width: 3vmin;
+    border-radius: 2vmin;
+    cursor: pointer;
+    -webkit-appearance: none;
+    background-color: orange;
 }
+
 #heaterDisplay {
     font-size: 3vmin;
 }
