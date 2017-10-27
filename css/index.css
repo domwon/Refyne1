@@ -304,7 +304,7 @@ input[type=range]::-webkit-slider-thumb {
     text-align: justify;
     margin: 2vmin auto 2vmin auto;
     background-color: #2A324B;
-    padding: 5vmin;
+    padding: 2vmin 5vmin 2vmin 5vmin;
     border-radius: 0.5vmin;
 }
 .header {
@@ -332,4 +332,9 @@ input[type=range]::-webkit-slider-thumb {
 /*    border: 1vmin white solid;*/
     vertical-align: top;
     margin: 2vmin 2vw;
+}
+
+#footer {
+    height: 4vmin;
+    margin: 5vmin;
 }
