@@ -1,0 +1,132 @@
+<script>
+    // Data variables
+    var arrObjects = [];
+    var arrPlaced = [];
+    var lastPlaced;
+    var currBox;
+    var placeNum = 0;
+    var outputReached = false;
+    var userWin = false;
+
+    // Random generator for input and output
+    var temp;
+    var input;
+    var output;
+    var inputSideBoxID;
+    var outputSideBoxID;
+    var inputPressure;
+    var inputTemperature;
+    var outputPressure;
+    var outputTemperature;
+    var pressureDrop = 1;
+    var tempInc = 0;
+
+    var bluePipeNum = 1, greenPipeNum = 1, heaterNum = 1;
+
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // Variables for heater controlling
+    var slider;
+    var heaterOutput;
+    var heatObject;
+    var updatedHeat;
+    var newHeaterPressure;
+
+    // Assign HTML elements into variables 
+    var checkBtn = document.getElementById("checkBtn");
+    var resetBtn = document.getElementById("resetBtn");
+    var messageDiv = document.getElementById("messageDiv");
+    var bluePipeContainer = document.getElementById("bluePipeContainer");
+    var greenPipeContainer = document.getElementById("greenPipeContainer");
+    var heaterContainer = document.getElementById("heaterContainer");
+    var container = document.getElementById("powerup-bar");
+</script>
+<div id="titleDiv">
+    <div id="title">REFYNE | Play</div>
+    <a class="navigateBtn" href="#!/"><h3>HOME</h3></a>
+    <a class="navigateBtn" href="#!/tutorial"><h3>TUTORIAL</h3></a>
+</div>
+
+<div class="screen-section">
+    <div id="powerup-bar-wrapper" class="center">
+        <div id="powerup-bar">
+            <div id="bluePipeContainer" class="powerup-container">
+                <div id="bluePipe-1" class="bluePipe element" draggable="true" ondragstart="drag(event)">
+                </div>
+            </div>
+            <div id="greenPipeContainer" class="powerup-container">
+                <div id="greenPipe-1" class="greenPipe element" draggable="true" ondragstart="drag(event)">
+                </div>
+            </div>
+            <div id="heaterContainer" class="powerup-container">
+                <div id="heater-1" class="heater element" draggable="true" ondragstart="drag(event)" onclick="heaterSetting(this)">
+                    <div>&#9832;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="screen-section">
+    <div id="grid">
+        <div id="tl-corner"class="invisibleSquare"></div>
+        <div id="T1"class="invisibleSquare"></div>
+        <div id="T2"class="invisibleSquare"></div>
+        <div id="T3"class="invisibleSquare"></div>
+        <div id="tr-corner"class="invisibleSquare"></div>
+        <div id="L1"class="invisibleSquare"></div>
+        <div id="1"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div id="2"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div id="3"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div id="R1"class="invisibleSquare"></div>
+        <div id="L2"class="invisibleSquare"></div>
+        <div id="4"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div id="5"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div id="6"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div id="R2"class="invisibleSquare"></div>
+        <div id="L3"class="invisibleSquare"></div>
+        <div id="7"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div id="8"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div id="9" class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div id="R3"class="invisibleSquare"></div>
+        <div id="bl-corner"class="invisibleSquare"></div>
+        <div id="B1"class="invisibleSquare"></div>
+        <div id="B2"class="invisibleSquare"></div>
+        <div id="B3"class="invisibleSquare"></div>
+        <div id="br-corner"class="invisibleSquare"></div>
+
+    </div>
+</div>
+
+<div class="screen-section">
+
+    <div>
+        <div class="btnContainer">
+            <div id="resetBtn" class="element" onclick="completeReset();">
+                <div id="undoSymbol">&#9850;</div>
+            </div>
+        </div>
+        <div class="btnContainer">
+            <div id="checkBtn" class="element" onclick="checkSolution();">
+                <div id="checkSymbol">&#10003;</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close" onclick="closeModal();">&times;</span>
+        <div id="messageDiv"></div>
+    </div>
+</div>
+
+<script>initiate();</script>

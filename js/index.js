@@ -1,16 +1,24 @@
-var arrObjects = [];
-var arrPlaced = [];
-var lastPlaced;
-var currBox;
-var placeNum = 0;
-var userWin = false;
+var myApp = angular.module('myApp', ['ngRoute']);
 
-// Assign HTML elements into variables 
-var checkBtn = document.getElementById("checkBtn");
-var resetBtn = document.getElementById("resetBtn");
-var messageDiv = document.getElementById("messageDiv");
+// AngularJS configuration
+myApp.config(function ($routeProvider) {
 
-//Box Constructor
+	$routeProvider
+
+	.when('/', {
+		templateUrl: 'html/splash.html'
+	})
+
+	.when('/play', {
+		templateUrl: 'html/play.html'
+	})
+	
+	.when('/tutorial', {
+		templateUrl: 'html/tutorial.html'
+	})
+});
+
+// Box Constructor
 function boxObject(id, type, x, y) {
     this.id = id;
     this.type = type;
@@ -32,14 +40,6 @@ function getX(id) {
 function getY(id) {
     return parseInt((id/3));
 }
-
-//Create boxes and push to array "arrObjects"
-for (var i = 0; i < 9; i++) {
-    var id = document.getElementById(i+1).id;
-    var newBox = new boxObject(id, "empty", getX(i), getY(i));
-    arrObjects.push(newBox);
-}
-console.log(arrObjects);
 
 // Functions to check surrounding boxes if drop is valid
 function checkNearby(currentObject) {
@@ -157,19 +157,6 @@ function randomLocation() {
     return arrayLetters[ranLetter] + (ranNumber + 1).toString();
 }
 
-//Random generator for input and output
-var temp;
-var input;
-var output;
-var inputSideBoxID;
-var outputSideBoxID;
-var inputPressure;
-var inputTemperature;
-var outputPressure;
-var outputTemperature;
-var pressureDrop = 1;
-var tempInc = 0;
-
 function randomProcessCond() {
     inputPressure = randInt(20, 30);
     inputTemperature = randInt(1, 4) * 50;
@@ -181,8 +168,16 @@ function randInt(min,max) {
     return Math.floor(Math.random()*(max-min+1)+min);
 }
 
-// Function to generate random input and output and highlight starting box
+// Function to generate boxes, random input and output, and highlight starting box
 function initiate() {
+    // Create boxes and push to array "arrObjects"
+    for (var i = 0; i < 9; i++) {
+        var id = document.getElementById(i+1).id;
+        var newBox = new boxObject(id, "empty", getX(i), getY(i));
+        arrObjects.push(newBox);
+    }
+    console.log(arrObjects);
+    
     inputSideBoxID = randomLocation();
     input = temp;
     input.highlight = true;
@@ -202,13 +197,12 @@ function initiate() {
     // Highlight and display input and output process conditions
     var inputSideBox = document.getElementById(inputSideBoxID);
     inputSideBox.classList.add("sideHighlighted");
-    inputSideBox.innerHTML = "<h2>Input<br>P: " + inputPressure + "<br>T: " + inputTemperature + "</h2>";
+    inputSideBox.innerHTML = "<h3>Input<br>P: " + inputPressure + "<br>T: " + inputTemperature + "</h3>";
     
     var outputSideBox = document.getElementById(outputSideBoxID);
     outputSideBox.classList.add("sideHighlighted");
-    outputSideBox.innerHTML = "<h2>Output<br>P: " + outputPressure + "<br>T: " + outputTemperature + "</h2>";
+    outputSideBox.innerHTML = "<h3>Output<br>P: " + outputPressure + "<br>T: " + outputTemperature + "</h3>";
 }
-initiate();
 
 // Function to check if outlet process conditions are satisfied
 function checkSolution(arr) {
@@ -222,7 +216,7 @@ function checkSolution(arr) {
     if (finalPressure == outputPressure && finalTemperature == outputTemperature) {
         
         
-        messageDiv.innerHTML =  '<h1 class="green">You win!</h1><br>Final Conditions<br>P: ' + 
+        messageDiv.innerHTML =  '<h1 class="green">You won!</h1><br>Final Conditions<br>P: ' + 
             finalPressure + "<br>T: " + finalTemperature + 
             '<br><br>Required Conditions<br>P: ' + outputPressure + '<br>T: ' + outputTemperature;
         openModal();
@@ -274,21 +268,19 @@ function completeReset() {
 }
 
 /* Drag and Drop Functions */
-var bluePipeNum = 1, greenPipeNum = 1, heaterNum = 1;
-var bluePipeContainer = document.getElementById("bluePipeContainer");
-var greenPipeContainer = document.getElementById("greenPipeContainer");
-var heaterContainer = document.getElementById("heaterContainer");
-
 function allowDrop(ev) {
     ev.preventDefault();
 } 
+
 function drag(ev) {
 	ev.dataTransfer.setData("text", ev.target.id);
 }
 
-var oldElement;
-var newElement;
 function drop(ev) {
+    
+    var oldElement;
+    var newElement;
+    
     currBox = ev.currentTarget;
     
     ev.draggable = false;
@@ -350,7 +342,7 @@ function drop(ev) {
         // Rehighlight boxes
         console.log(currBox.id);
         console.log(output.id);
-        if (currBox.id != output.id) {
+        if (currBox.id != output.id && !outputReached) {
             
             console.log("Output not reached");
             rehighlight(arrPlaced[lastPlaced]);
@@ -362,6 +354,7 @@ function drop(ev) {
             
             // Make checkBtn visible
             checkBtn.style.visibility = "visible";
+            outputReached = true;
             console.log("Output reached");
             
         }
@@ -378,7 +371,6 @@ function drop(ev) {
     
 }
 
-var container = document.getElementById("powerup-bar");
 // Function to replace powerup
 function replacePowerUp() {
     
@@ -496,17 +488,10 @@ function resetGame() {
     highlightBoxes();
     arrPlaced = [];
     moves = [];
+    outputReached = false;
+    var placeNum = 0;
     resetBtn.style.visibility = "hidden";
 }
-
-// Get the modal
-var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
 
 // Open the modal 
 function openModal() {
@@ -514,29 +499,22 @@ function openModal() {
 }
 
 // Close the modal when the user clicks on the x btn
-span.onclick = function() {
+function closeModal() {
     modal.style.display = "none";
     if (userWin) {
         location.reload();
     }
     userWin = false;
+    outputReached = false;
 }
-
-//Slider functionality for heaters
-var slider;
-var heaterOutput;
-var heatObject;
-var updatedHeat;
-var newHeaterPressure;
 
 function heaterSetting(ev) {
     var parentNodeId = ev.parentElement.id;
-    var oldTemp = arrObjects[parentNodeId-1].temperature;
     heatObject = parentNodeId - 1;
-    console.log(heatObject);
 
     if(parentNodeId != "heaterContainer")
         {
+            var oldTemp = arrObjects[parentNodeId-1].temperature;
             messageDiv.innerHTML = '<div id="heaterControlsRightSide"><div class="center-wrapper">' +
                 '<div><div id = "heaterDisplay"><b>Heating Temp: <br><br><span id = "value"></span></b></div>' +
                 '<br><div><button id = "heaterSubmit" onclick = "submitHeat();"><b>Set</b></button>' +
