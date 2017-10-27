@@ -16,6 +16,9 @@ myApp.config(function ($routeProvider) {
 	.when('/tutorial', {
 		templateUrl: 'html/tutorial.html'
 	})
+    .when('/team', {
+		templateUrl: 'html/team.html'
+	})
 });
 
 // Box Constructor
