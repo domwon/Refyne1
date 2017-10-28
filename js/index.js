@@ -305,7 +305,6 @@ function drop(ev) {
         
         // Disable further dragging of element
         newElement.draggable = false;
-//        console.log(oldElement);
 
         // Replace an existing element with new element
         if (currBox.hasChildNodes()) {
@@ -321,7 +320,8 @@ function drop(ev) {
             console.log("%cSUCCESS: Replaced " + oldElement.id + " in Box " + 
                         currBox.id + " with " + newElement.id, "color:green");
             
-//            source = getReplacedImgLink();
+            source = getReplacedImgLink();
+            addBoxImg(currBox, source);
             
         } else { // Place new element
                 
@@ -338,8 +338,8 @@ function drop(ev) {
             console.log("%cSUCCESS: Placed " + newElement.id + 
                         " in Box " + currBox.id, "color:green");
             
-//            source = getPlacedImgLink(currBox, lastPlaced);
-//            addBoxImg(currBox, source);
+            source = getPlacedImgLink(currBox, lastPlaced);
+            addBoxImg(currBox, source);
         }
         
         // Rehighlight boxes
