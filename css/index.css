@@ -206,6 +206,9 @@ h3 {
     justify-content: center;
     color: white;
 }
+#checkBtn:hover, #resetBtn:hover {
+    border: none;
+}
 #checkBtn:active, #resetBtn:active {
     color: white;
 }

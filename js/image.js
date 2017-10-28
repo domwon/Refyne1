@@ -1,4 +1,4 @@
-function getPlacedImgLink(currBox, objPlacedID) {
+function getPlacedImgLink(objPlacedID) {
     var currBoxObj = arrPlaced[objPlacedID];
     currX = currBoxObj.xcoord;
     currY = currBoxObj.ycoord;
@@ -150,7 +150,26 @@ function getReplacedImgLink(objPlacedID) {
                     dirNext = "AndTop";
                 }
             }
+        } 
+        else if (currBox.id === output.id) { // If replacing or placing at last box
+            var outputFirstLet = outputSideBoxID[0];
+            if (outputFirstLet === "T") {
+                dirNext = "AndTop";
+            } else if (outputFirstLet === "R") {
+                dirNext = "AndRight";
+            } else if (outputFirstLet === "B") {
+                dirNext = "AndBot";
+            } else {
+                dirNext = "AndLeft";
+            }
+            
+            // Calls replace on prev box
+            var prevBoxID = arrPlaced[objPlacedID - 1].id;
+            var prevBox = document.getElementById(prevBoxID);
+            addBoxImg(prevBox, getReplacedImgLink(objPlacedID - 1));
         }
+        
+        
         var totalDir = dirPrev + dirNext;
         if (totalDir === "FromBotAndTop" || totalDir === "FromTopAndBot" || totalDir === "FromTop" || totalDir === "FromBot") {
             totalDir = "Vertical";
@@ -172,6 +191,12 @@ function getReplacedImgLink(objPlacedID) {
         return source;
         
     } else { // element is heater
+        // Temporary patch to fix placing heater connection bug
+        if (arrPlaced[objPlacedID - 1] !== undefined) {
+            var prevBoxID = arrPlaced[objPlacedID - 1].id;
+            var prevBox = document.getElementById(prevBoxID);
+            addBoxImg(prevBox, getReplacedImgLink(objPlacedID - 1));
+        }
         return 'res/heater.png';
     }
 }
