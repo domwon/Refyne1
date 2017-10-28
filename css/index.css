@@ -315,6 +315,15 @@ input[type=range]::-webkit-slider-thumb {
 .header {
     color: #81B29A;
 }
+#grid-screenshot {
+    height: 50vmin;
+    width: 50vmin;
+    border-radius: 0.5vmin;
+}
+.screenshot-container {
+    width: 50vmin;
+    margin: 5vmin auto;
+}
 
 /* Team */
 .profile {
