@@ -320,7 +320,15 @@ function drop(ev) {
             console.log("%cSUCCESS: Replaced " + oldElement.id + " in Box " + 
                         currBox.id + " with " + newElement.id, "color:green");
             
-            source = getReplacedImgLink();
+            for(var i = 0; i < arrPlaced.length; i++)
+                {
+                    if(arrPlaced[i].id == (currBox.id))
+                        {
+                            console.log(i);
+                            source = getReplacedImgLink(i);
+                        }
+                }
+            
             addBoxImg(currBox, source);
             
         } else { // Place new element
