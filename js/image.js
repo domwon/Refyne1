@@ -145,9 +145,9 @@ function getReplacedImgLink(objPlacedID) {
             }
         }
         var totalDir = dirPrev + dirNext;
-        if (totalDir === "FromBotAndTop" || totalDir === "FromTopAndBot") {
+        if (totalDir === "FromBotAndTop" || totalDir === "FromTopAndBot" || totalDir === "FromTop" || totalDir === "FromBot") {
             totalDir = "Vertical";
-        } else if (totalDir === "FromLeftAndRight" || totalDir === "FromRightAndLeft"){
+        } else if (totalDir === "FromLeftAndRight" || totalDir === "FromRightAndLeft" || totalDir === "FromLeft" || totalDir === "FromRight"){
             totalDir = "Horizontal";
         } else if (totalDir === "FromBotAndRight" || totalDir === "FromRightAndBot") {
             totalDir = "SECorner";
@@ -170,10 +170,13 @@ function getReplacedImgLink(objPlacedID) {
 }
 
 function addBoxImg(currBox, source) {
+    debugger;
     if (source.startsWith('res/heater')) { // add onclick attrib to heaters
         currBox.innerHTML = '<img id="' + currBox.type + '" src="' + source + '" class="imgElement" onclick="heaterSetting(this);">';
+        
         console.log("heater added");
     } else {
-        currBox.innerHTML = '<img src="' + source + '" class="imgElement">'
+        
+        currBox.innerHTML = '<img src="' + source + '" class="imgElement">';
     }
 }
