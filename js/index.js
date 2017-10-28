@@ -529,10 +529,10 @@ function heaterSetting(ev) {
             slider = document.getElementById("slider");
             heaterOutput = document.getElementById("value");
             updatedHeat = slider.value;
-            heaterOutput.innerHTML = slider.value + " C";
+            heaterOutput.innerHTML = slider.value + " &#x2103";
             
             slider.oninput = function(){
-                heaterOutput.innerHTML = this.value + " C"; 
+                heaterOutput.innerHTML = this.value + " &#x2103"; 
                 updatedHeat = this.value;
             }
         }

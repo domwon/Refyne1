@@ -7,20 +7,164 @@
     <p>The objective of the game is to insert pipes and/or heaters to match the expected output pressure and temperature. Initially, you are given an input pressure and temperature. Your task is to find the correct combination (there is likely more than one!) of pipes and heaters to generate the expected output conditions.</p>
     
     <p>The following diagram will represent the playing field:</p>
-    <!--Display 3x3 grid here-->
-    <p>This grid will be where you place each of your elements, whether it be a pipe or a heater. You will start at the shaded box next to the input field and place your first move there. After that, legal moves are the surrounding boxes that are shaded around it.</p>
-    <!--Display powerup container-->
+        <div class="screen-section3">
+            <div id="grid2">
+                <div id="tl-corner"class="invisibleSquare"></div>
+                <div id="T1"class="invisibleSquare"></div>
+                <div id="T2"class="invisibleSquare"></div>
+                <div id="T3"class="invisibleSquare"></div>
+                <div id="tr-corner"class="invisibleSquare"></div>
+                <div id="L1"class="invisibleSquare"></div>
+                <div id="1"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="2"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="3"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="R1"class="invisibleSquare"></div>
+                <div id="L2"class="invisibleSquare"></div>
+                <div id="4"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="5"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="6"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="R2"class="invisibleSquare"></div>
+                <div id="L3"class="invisibleSquare"></div>
+                <div id="7"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="8"class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="9" class="gridSquare" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="R3"class="invisibleSquare"></div>
+                <div id="bl-corner"class="invisibleSquare"></div>
+                <div id="B1"class="invisibleSquare"></div>
+                <div id="B2"class="invisibleSquare"></div>
+                <div id="B3"class="invisibleSquare"></div>
+                <div id="br-corner"class="invisibleSquare"></div>
+
+            </div>
+        </div>
+    <p class="topPar">This grid will be where you place each of your elements, whether it be a pipe or a heater. You will start at the shaded box next to the input field and place your first move there. After that, legal moves are the surrounding boxes that are shaded around it.</p>
+        <div class="screen-section4">
+            <div id="powerup-bar-wrapper2">
+                <div id="powerup-bar2">
+                    <div id="bluePipeContainer" class="powerup-container2">
+                        <div id="bluePipe-1" class="bluePipe element">
+                        </div>
+                    </div>
+                    <div id="greenPipeContainer" class="powerup-container2">
+                        <div id="greenPipe-1" class="greenPipe element">
+                        </div>
+                    </div>
+                    <div id="heaterContainer" class="powerup-container2">
+                        <div id="heater-1" class="heater element">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     <p>Each chemical engineer is equipped with the required tools to complete their daily tasks on time. Above, you will find yours! (Pipes and heaters).</p>
     <ul>
-        <li>Pipes: Each pipe will decrease the pressure by 1 psi or 2 psi.</li>
-        <li>Heaters: Each heater is defaulted to increase the temperature by 50 C.</li>
+        <li class = "firstLooseList">Pipes: Each pipe will decrease the pressure by 1 psi or 2 psi.</li>
+        <li class = "tightList">Heaters: Each heater is defaulted to not affect the temperature (0 &#x2103) but will <b>decrease</b> the pressure by 1 psi.</li>
         <ul>
-            <!--Display modal for temperature adjustment-->
-            <li>Bonus!: You can change the generated temperature of each heater by simply clicking on it. Drag the slider to your desired temperature and click "Submit Heat" to update the temperature for that heater.</li>
+            <li class = "tightList" id = "bonus">Bonus!: You can change the generated temperature of each heater by simply clicking on it. Drag the slider to your desired temperature and click "Submit Heat" to update the temperature for that heater.</li>
+            <div id="snippet"><img src="./res/pic.PNG" id="snippetPic"></div>
+            <ul>
+                <li class = "looseList">Increasing temperature to  25 &#x2103 will <b>not</b> affect the pressure (0 psi).</li>
+                <li class = "looseList">Increasing temperature to 50 &#x2103 will result in an <b>increase</b> in pressure by 1 psi.</li>
+            </ul>
         </ul>
     </ul>
-    <p>Each move that you make will represent the path that the system will run through. Because you cannot work backwards (starting from the output field), plan carefully! However, even chemical engineers make mistakes. If you wish you replace a move, simply drag another element on top of the desired box.</p>
-    <p>Did something bigger go wrong that a simple replace can't fix? Easy enough. At the top you will find a restart button. Any hefty mistakes will be taken care of by completely resetting the board.</p>
-    <!--Display the restart button-->
+    <p>Each move that you make will represent the path that the system will run through. Because you cannot work backwards (starting from the output field), plan carefully! However, even chemical engineers make mistakes. If you wish to replace a move, simply drag another element on top of the desired box.</p>
+    <p>Did something bigger go wrong that a simple replace can't fix? Easy enough. On the right side you will find a restart button. Any hefty mistakes will be taken care of by completely resetting the board. Also on the right side, you will see a check answer button appear, once you have placed on the square closest to the output field. Click this and we'll calculate to see if your system works. :)</p>
+       <div class="screen-section2">
+           <div class="btnContainer2">
+                <div id="resetBtn2" class="element">
+                    <div id="undoSymbol">&#9850;</div>
+                </div>
+            </div>
+            <div class="btnContainer2">
+                <div id="checkBtn2" class="element">
+                    <div id="checkSymbol">&#10003;</div>
+                </div>
+            </div>
+        </div>
     <p>Now go develop your skills! Chemical engineers believe in your potential and await for your talents to be applied to the real world.</p>
 </div>
+
+<style>
+#checkBtn2, #resetBtn2 {
+    width: 12vmin;
+	height: 12vmin;
+	cursor: pointer;
+    margin: auto 2vmin;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+.btnContainer2 {
+    display: inline-block;
+    margin: auto;
+    float: center;
+    padding: 10px;
+}
+.screen-section2 {
+    margin: auto;
+    height: 15vmin;
+    width: 40vmin;
+}
+.screen-section3 {
+    margin: auto;
+    height: 15vmin;
+    width: 100vmin;
+}
+#grid2 {
+	width: 80vmin;
+	height: 80vmin;
+	margin: auto;
+    justify-content: center;
+}
+.topPar {
+    margin-top: 50%;
+}
+.screen-section4 {
+    padding-top: 8vmin;
+    margin: auto;
+    height: 15vmin;
+    width: 100vmin;
+}
+#powerup-bar-wrapper2 {
+	width: 50vmin;
+	height: 40vmin;
+	margin: 0vmin auto;
+}
+.powerup-bar2 {
+    width: 15vmin;
+    height: 15vmin;
+}
+.powerup-container2 {
+	width: 15vmin;
+	height: 15vmin;
+    display: inline-block;
+    align-items: center;
+} 
+#snippet {
+    border: 4px solid white;
+    border-radius: 8px;
+    align-content: center;
+    margin: auto;
+    width: 60vmin;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+#snippetPic {
+    width: 60vmin;
+    height: 30vmin;
+}
+.firstLooseList {
+    line-height: 300%;
+}
+.looseList {
+    line-height: 200%;
+}
+.tightList {
+    line-height: 115%;
+}
+#bonus {
+    margin-top: 5px;
+}
+</style>
