@@ -1,10 +1,9 @@
 html {
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 body {
 	color: #DAF0EF;
@@ -61,6 +60,7 @@ h3 {
 }
 .white {
     color: #DAF0EF;
+    color: rgb(218, 240, 239);
 }
 .grey {
     color: #767B91;
@@ -126,16 +126,14 @@ h3 {
     border-radius: 1vmin;
 }
 .gridSquare {
-/*    outline: 0.5vmin solid white;*/
-    background-color: #232323;
+    background-color: rgba(35, 35, 35, 0.3);
     transition-duration: 0.2s;
 }
 .invisibleSquare {
     opacity: 0.5;
 }
 .highlighted {
-    background-color: #DAF0EF;
-    opacity: 1;
+    background-color: rgba(218, 240, 239, 0.3);
 }
 .sideHighlighted {
     opacity: 1;
@@ -154,7 +152,7 @@ h3 {
 	width: 15vmin;
 	height: 15vmin;
 /*	outline: 0.5vmin solid white;*/
-} 
+}
 .bluePipe {
 	width: 10vmin;
 	height: 10vmin;
@@ -173,6 +171,7 @@ h3 {
     color: #DAF0EF;
 	background-color: #E07A5F;
 	cursor: pointer;
+    opacity: 1;
 }
 .element {
     display: flex;
@@ -182,9 +181,11 @@ h3 {
 	transition: 0.2s;
 	margin: 0 auto;
     border-radius: 1vmin;
+    opacity: 1;
 }
 .element:hover{
 	opacity: 0.8;
+    border: 0.5vmin white solid;
 }
 .element:active {
 	opacity: 0.75;
@@ -192,6 +193,7 @@ h3 {
 .imgElement {
     height: inherit;
     width: inherit;
+    border-radius: inherit;
 }
 
 #checkBtn, #resetBtn {
