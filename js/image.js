@@ -65,6 +65,13 @@ function getPlacedImgLink(currBox, objPlacedID) {
         return source;
         
     } else { // element is heater
+        
+        // Temporary patch to fix placing heater connection bug
+        if (arrPlaced[objPlacedID - 1] !== undefined) {
+            var prevBoxID = arrPlaced[objPlacedID - 1].id;
+            var prevBox = document.getElementById(prevBoxID);
+            addBoxImg(prevBox, getReplacedImgLink(objPlacedID - 1));
+        }
         return 'res/heater.png';
     }
     
