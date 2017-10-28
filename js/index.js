@@ -227,11 +227,6 @@ function checkSolution(arr) {
         
     } else {
         
-//        alert("Sorry, that's not quite right.\n\nRequired Conditions\nP: " + 
-//              outputPressure + "\nT: " + outputTemperature +
-//              "\n\nFinal Conditions\nP: " + finalPressure + "\nT: " + finalTemperature
-//             );
-        
         messageDiv.innerHTML = "<h1 class='red'>Try again!</h1><br>Final Conditions<br>P: " + 
             finalPressure + "<br>T: " + finalTemperature + 
             "<br><br>Required Conditions<br>P: " + outputPressure + "<br>T: " + outputTemperature;
@@ -346,7 +341,11 @@ function drop(ev) {
             console.log("%cSUCCESS: Placed " + newElement.id + 
                         " in Box " + currBox.id, "color:green");
             
-            source = getPlacedImgLink(currBox, lastPlaced);
+            if (currBox.id === output.id) {
+                source = getReplacedImgLink(lastPlaced);
+            } else {
+                source = getPlacedImgLink(lastPlaced);
+            }
             addBoxImg(currBox, source);
         }
         
