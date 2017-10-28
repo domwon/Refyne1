@@ -73,20 +73,31 @@
     <p>Did something bigger go wrong that a simple replace can't fix? Easy enough. On the right side you will find a restart button. Any hefty mistakes will be taken care of by completely resetting the board. Also on the right side, you will see a check answer button appear, once you have placed on the square closest to the output field. Click this and we'll calculate to see if your system works. :)</p>
        <div class="screen-section2">
            <div class="btnContainer2">
-                <div id="resetBtn2" class="element">
+                <div id="resetBtn2" class="element2">
                     <div id="undoSymbol">&#9850;</div>
                 </div>
             </div>
             <div class="btnContainer2">
-                <div id="checkBtn2" class="element">
+                <div id="checkBtn2" class="element2">
                     <div id="checkSymbol">&#10003;</div>
                 </div>
             </div>
         </div>
     <p>Now go develop your skills! Chemical engineers believe in your potential and await for your talents to be applied to the real world.</p>
+    
+    <a class="navigateBtn" id="playBtn" href="#!/play"><h3 class="playText">Play!</h3></a>
 </div>
 
 <style>
+#playBtn {
+    margin: auto;
+    margin-bottom: 5vmin;
+    margin-top: 8vmin;
+    width: 80vmin;
+}
+.playText {
+    margin: auto;
+}
 #checkBtn2, #resetBtn2 {
     width: 12vmin;
 	height: 12vmin;
@@ -106,6 +117,22 @@
     margin: auto;
     height: 15vmin;
     width: 40vmin;
+}
+.element2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5vmin;
+	transition: 0.2s;
+	margin: 0 auto;
+    border-radius: 1vmin;
+    opacity: 1;
+}
+.element2:hover{
+	opacity: 0.8;
+}
+.element2:active {
+	opacity: 0.75;
 }
 .screen-section3 {
     margin: auto;
