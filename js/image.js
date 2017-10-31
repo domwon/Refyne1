@@ -179,7 +179,7 @@ function getReplacedImgLink(objPlacedID) {
 function addBoxImg(currBox, source) {
     debugger;
     if (source.startsWith('res/heater')) { // add onclick attrib to heaters
-        currBox.innerHTML = '<img id="' + currBox.type + '" src="' + source + '" class="imgElement" onclick="heaterSetting(this);">';
+        currBox.innerHTML = '<img id="' + currBox.type + '" src="' + source + '" class="heaterElement imgElement" onclick="heaterSetting(this);">';
         
         console.log("heater added");
     } else {
