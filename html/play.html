@@ -7,6 +7,7 @@
     var placeNum = 0;
     var outputReached = false;
     var userWin = false;
+    var budget = 10000;
 
     // Random generator for input and output
     var temp;
@@ -47,6 +48,9 @@
     var greenPipeContainer = document.getElementById("greenPipeContainer");
     var heaterContainer = document.getElementById("heaterContainer");
     var container = document.getElementById("powerup-bar");
+    var budgetEl = document.getElementById("budget");
+    budgetEl.innerHTML = budget;
+    
 </script>
 <div id="titleDiv">
     <div id="title">REFYNE | Play</div>
@@ -107,6 +111,10 @@
 <div class="screen-section">
 
     <div>
+        <div>
+            <h3 class="inline-block">BUDGET: $</h3>
+            <h3 id="budget" class="inline-block"></h3>
+        </div>
         <div class="btnContainer">
             <div id="resetBtn" class="element" onclick="completeReset();">
                 <div id="undoSymbol">&#9850;</div>

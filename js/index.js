@@ -1,5 +1,9 @@
 var myApp = angular.module('myApp', ['ngRoute']);
-
+var cost = {
+    bluePipe: 200,
+    greenPipe: 100,
+    heater: 1000
+};
 // AngularJS configuration
 myApp.config(function ($routeProvider) {
 
@@ -263,6 +267,8 @@ function completeReset() {
     arrPlaced = [];
     input.highlight = true;
     highlightBoxes();
+    
+    outputReached = false;
 }
 
 /* Drag and Drop Functions */
@@ -310,7 +316,7 @@ function drop(ev) {
             currBox.appendChild(newElement);
             
             // Transfer element properties to box object
-            transferProperties(currBox.id, newElement, false);
+            transferProperties(currBox.id, newElement.id, false);
             
             console.log("%cSUCCESS: Replaced " + oldElement.id + " in Box " + 
                         currBox.id + " with " + newElement.id, "color:green");
@@ -332,7 +338,7 @@ function drop(ev) {
             newElement = currBox.children[0];
           
             // Transfer element properties to box object
-            transferProperties(currBox.id, newElement, true);
+            transferProperties(currBox.id, newElement.id, true);
             
             arrPlaced.push(arrObjects[currBox.id - 1]);
             lastPlaced = arrPlaced.length - 1;
@@ -377,6 +383,9 @@ function drop(ev) {
         if (arrPlaced.length == 1) {
             resetBtn.style.visibility = "visible";
         }
+        
+        // Update budget using cost of element
+        updateBudget(newElement.id);
     }
     
 }
@@ -445,26 +454,23 @@ function rehighlight(box) {
 }
 
 // Function to transfer properties of element to box object
-function transferProperties(boxID, element, placement) {
+function transferProperties(boxID, elementID, placement) {
     
     var boxObjectLoc = boxID - 1;
     var currBoxObj = arrObjects[boxObjectLoc];
+    currBoxObj.type = elementID;
     
-    
-    if (element.id.startsWith("bluePipe")) {
+    if (elementID.startsWith("bluePipe")) {
 
-        currBoxObj.type = element.id;
         currBoxObj.pressure = -pressureDrop;
         
-    } else if (element.id.startsWith("greenPipe")) {
+    } else if (elementID.startsWith("greenPipe")) {
 
         // Green Pipe has 2x more pressure drop than Blue Pipe
-        currBoxObj.type = element.id;
         currBoxObj.pressure = -pressureDrop * 2;
 
-    } else if (element.id.startsWith("heater")) {
+    } else if (elementID.startsWith("heater")) {
 
-        currBoxObj.type = element.id;
         currBoxObj.pressure = -pressureDrop;
         currBoxObj.temperature = tempInc;
 
@@ -483,7 +489,7 @@ function transferProperties(boxID, element, placement) {
     }
 }
 
-//Function to highlight last element placed to be removed
+// Function to highlight last element placed to be removed
 function highlightRemove() {
     console.log(lastPlaced);
     resetHighlight();
@@ -536,10 +542,10 @@ function heaterSetting(ev) {
             slider = document.getElementById("slider");
             heaterOutput = document.getElementById("value");
             updatedHeat = slider.value;
-            heaterOutput.innerHTML = slider.value + " &#x2103";
+            heaterOutput.innerHTML = slider.value + "&deg;C";
             
             slider.oninput = function(){
-                heaterOutput.innerHTML = this.value + " &#x2103"; 
+                heaterOutput.innerHTML = this.value + "&deg;C"; 
                 updatedHeat = this.value;
             }
         }
@@ -569,4 +575,25 @@ function submitHeat() {
     console.log("New heater temperature is: " + newHeaterTemp);
     console.log("New heater pressure is: " + newHeaterPressure);
     
+}
+
+function updateBudget(elementID) {
+    budgetEl.style.opacity = 0;
+    if (elementID.startsWith("bluePipe")) {
+
+        budget -= cost.bluePipe;
+        
+    } else if (elementID.startsWith("greenPipe")) {
+
+        budget -= cost.greenPipe;
+
+    } else if (elementID.startsWith("heater")) {
+
+        budget -= cost.heater;
+    }
+    
+    setTimeout(function() {
+        budgetEl.innerHTML = budget;
+        budgetEl.style.opacity = 1;
+    }, 200);
 }

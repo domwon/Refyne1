@@ -10,7 +10,6 @@ function getPlacedImgLink(objPlacedID) {
     if (arrPlaced[objPlacedID - 1] === undefined) { // obj is first obj
 
         var inputFirstLet = inputSideBoxID[0];
-        debugger;
         if (inputFirstLet === "T") {
             dirPrev = "FromTop";
         } else if (inputFirstLet === "R") {
@@ -46,7 +45,6 @@ function getPlacedImgLink(objPlacedID) {
         // Get link of replace img in prev obj and replace img
         var prevBoxID = arrPlaced[objPlacedID - 1].id;
         var prevBox = document.getElementById(prevBoxID);
-        debugger;
         addBoxImg(prevBox, getReplacedImgLink(objPlacedID - 1));
 
     }
@@ -58,7 +56,6 @@ function getPlacedImgLink(objPlacedID) {
     }
 
     source = 'res/' + currType + dirPrev + '.png';
-    debugger;
     return source;
 
 }
@@ -76,7 +73,6 @@ function getReplacedImgLink(objPlacedID) {
     if (arrPlaced[objPlacedID - 1] === undefined) { // obj is first obj
 
         var inputFirstLet = inputSideBoxID[0];
-        debugger;
         if (inputFirstLet === "T") {
             dirPrev = "FromTop";
         } else if (inputFirstLet === "R") {
@@ -171,13 +167,11 @@ function getReplacedImgLink(objPlacedID) {
 
     source = 'res/' + currType + totalDir + '.png';
 
-    debugger;
     return source;
 
 } 
 
 function addBoxImg(currBox, source) {
-    debugger;
     if (source.startsWith('res/heater')) { // add onclick attrib to heaters
         currBox.innerHTML = '<img id="' + currBox.type + '" src="' + source + '" class="heaterElement imgElement" onclick="heaterSetting(this);">';
         

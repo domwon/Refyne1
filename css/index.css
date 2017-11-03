@@ -44,6 +44,9 @@ h3 {
 	align-items: center;
 	justify-content: center;
 }
+.inline-block {
+    display: inline-block;
+}
 .center-wrapper {
     display: flex;
     justify-content: center;
@@ -196,8 +199,10 @@ h3 {
     border-radius: inherit;
 }
 .heaterElement:hover {
-    opacity: 0.8;
     cursor: pointer;
+    opacity: 0.8;
+    border: white solid 0.5vmin;
+    border-radius: 1.5vmin;
 }
 
 #checkBtn, #resetBtn {
@@ -305,6 +310,11 @@ input[type=range]::-webkit-slider-thumb {
 }
 #heaterSubmit:hover {
 	opacity: 1;
+}
+
+/* Budget */
+#budget {
+    transition: opacity 0.2s ease-in-out;
 }
 
 /* Tutorial */
