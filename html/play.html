@@ -7,7 +7,7 @@
     var placeNum = 0;
     var outputReached = false;
     var userWin = false;
-    var budget = 10000;
+    var budget = 5000;
 
     // Random generator for input and output
     var temp;
@@ -62,15 +62,17 @@
         <div id="powerup-bar">
             <div id="bluePipeContainer" class="powerup-container">
                 <div id="bluePipe-1" class="bluePipe element" draggable="true" ondragstart="drag(event)">
+                    <h3>$200</h3>
                 </div>
             </div>
             <div id="greenPipeContainer" class="powerup-container">
                 <div id="greenPipe-1" class="greenPipe element" draggable="true" ondragstart="drag(event)">
+                    <h3>$100</h3>
                 </div>
             </div>
             <div id="heaterContainer" class="powerup-container">
                 <div id="heater-1" class="heater element" draggable="true" ondragstart="drag(event)" onclick="heaterSetting(this);">
-                    <div>&#9832;</div>
+                    <h3>$1000</h3>
                 </div>
             </div>
         </div>
@@ -110,17 +112,17 @@
 
 <div class="screen-section">
 
-    <div>
+    <div id="stats-btn-wrapper" class="wrapper">
         <div>
             <h3 class="inline-block">BUDGET: $</h3>
             <h3 id="budget" class="inline-block"></h3>
         </div>
-        <div class="btnContainer">
+        <div class="center">
             <div id="resetBtn" class="element" onclick="completeReset();">
                 <div id="undoSymbol">&#9850;</div>
             </div>
         </div>
-        <div class="btnContainer">
+        <div class="center">
             <div id="checkBtn" class="element" onclick="checkSolution();">
                 <div id="checkSymbol">&#10003;</div>
             </div>

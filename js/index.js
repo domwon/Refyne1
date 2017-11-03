@@ -399,20 +399,20 @@ function replacePowerUp() {
             if (container.children[i].id.startsWith("bluePipe")) {
                 
                 bluePipeNum++;
-                bluePipeContainer.innerHTML = "<div id='bluePipe-" + bluePipeNum + 
-                    "' class='bluePipe element' draggable='true' ondragstart='drag(event)'></div>";
+                bluePipeContainer.innerHTML = '<div id="bluePipe-' + bluePipeNum + 
+                    '" class="bluePipe element" draggable="true" ondragstart="drag(event)"><h3>$' + cost.bluePipe + '</h3></div>';
                 
             } else if (container.children[i].id.startsWith("greenPipe")) {
                             
                 greenPipeNum++;
-                greenPipeContainer.innerHTML = "<div id='greenPipe-" + greenPipeNum + 
-                    "' class='greenPipe element' draggable='true' ondragstart='drag(event)'></div>";
+                greenPipeContainer.innerHTML = '<div id="greenPipe-' + greenPipeNum + 
+                    '" class="greenPipe element" draggable="true" ondragstart="drag(event)"><h3>$' + cost.greenPipe + '</h3></div>';
             
             } else if (container.children[i].id.startsWith("heater")) {
                             
                 heaterNum++;
-                heaterContainer.innerHTML = "<div id='heater-" + heaterNum + 
-                    "' class='heater element' draggable='true' ondragstart='drag(event) ' onclick = 'heaterSetting(this)'><div>&#9832;</div></div>";
+                heaterContainer.innerHTML = '<div id="heater-' + heaterNum + 
+                    '" class="heater element" draggable="true" ondragstart="drag(event)" onclick = "heaterSetting(this)"><h3>$' + cost.heater + '</h3></div>';
             
             }
                     
@@ -591,6 +591,14 @@ function updateBudget(elementID) {
 
         budget -= cost.heater;
     }
+    
+    if (budget < 0) {
+        messageDiv.innerHTML = "<h1 class='red'>Game Over!</h1><br>You ran out of money.";
+        openModal();
+        budget = 5000;
+        completeReset();
+    }
+    
     
     setTimeout(function() {
         budgetEl.innerHTML = budget;

@@ -47,11 +47,11 @@ h3 {
 .inline-block {
     display: inline-block;
 }
-.center-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height:inherit;
+.outline {
+    outline: solid white 0.5vmin;
+}
+#stats-btn-wrapper {
+    width: 30vmin;
 }
 
 /* Colors */
