@@ -53,6 +53,12 @@ h3 {
 #stats-btn-wrapper {
     width: 30vmin;
 }
+.center-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:inherit;
+}
 
 /* Colors */
 .red {
