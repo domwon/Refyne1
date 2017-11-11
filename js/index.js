@@ -221,16 +221,21 @@ function checkSolution(arr) {
     }
     
     if (finalPressure == outputPressure && finalTemperature == outputTemperature) {
-        
+        // User won
         
         messageDiv.innerHTML =  '<h1 class="green">You won!</h1><br>Final Conditions<br>P: ' + 
             finalPressure + "<br>T: " + finalTemperature + 
             '<br><br>Required Conditions<br>P: ' + outputPressure + '<br>T: ' + outputTemperature;
         openModal();
         userWin = true;
+		
+		// Save data in local storage
+		localStorage.setItem('budget', budget);
+		localStorage.setItem('refineryLives', lives);
         
     } else {
-        
+        // User lost
+		
         messageDiv.innerHTML = "<h1 class='red'>Try again!</h1><br>Final Conditions<br>P: " + 
             finalPressure + "<br>T: " + finalTemperature + 
             "<br><br>Required Conditions<br>P: " + outputPressure + "<br>T: " + outputTemperature;
@@ -243,6 +248,9 @@ function checkSolution(arr) {
         checkBtn.style.visibility = "hidden";
         resetBtn.style.visibility = "hidden";
         
+		// Save data in local storage
+		localStorage.setItem('budget', budget);
+		localStorage.setItem('refineryLives', lives);
     }
 }
 
@@ -577,6 +585,7 @@ function submitHeat() {
     
 }
 
+// Function to update budget
 function updateBudget(elementID) {
     budgetEl.style.opacity = 0;
     if (elementID.startsWith("bluePipe")) {
@@ -604,4 +613,16 @@ function updateBudget(elementID) {
         budgetEl.innerHTML = budget;
         budgetEl.style.opacity = 1;
     }, 200);
+}
+
+// Function to initiate user data
+function initiateData() {
+	// If data doesn't exist, set it with defaults
+	if (window.localStorage.getItem('refineryLives') === null) {
+		window.localStorage.setItem('budget', 5000);
+		window.localStorage.setItem('refineryLives', 3);
+	} 
+	// Pass data onto JS  global variables
+	budget = parseInt(window.localStorage.budget);
+	lives = parseInt(window.localStorage.refineryLives);
 }
