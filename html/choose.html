@@ -1,48 +1,59 @@
 <div id="titleDiv">
-    <div id="title">REFYNE | Choose Your Manager</div>
+    <div id="title">REFYNE | Play</div>
     <a class="navigateBtn" href="#!/"><h3>HOME</h3></a>
 </div>
 <div class="text-wrapper">
-    <h2 class="header">Select Your Manager</h2>
-    <div class="member-container2">
-        <h3>Venture Capitalist</h3>
-        <div class="profile-container">
-            <div id="VC" onclick="managerAbility(event)" >
-            <a href="#!/play"><img class="profile" src="./res/dominic-nguyen.jpg"></a>
-            </div>
-        </div>
-        <p>Venture Capitalist allows you to gain even more money with each level completed. With their investment, each level completed will gain you $1,000 more for your next missions.</p>
-    </div>
-    <div class="member-container2">
-        <h3>Safety Engineer</h3>
-        <div class="profile-container">
-            <div id="SE" onclick="managerAbility(event)">
-            <a href="#!/play"><img class="profile" src="./res/nick-nguyen.jpg"></a>
-            </div>
-        </div>
-        <p>Safety Engineer will decrease the likelihood of losing a life after faililng a level. With their aid, the chances of losing a life decreases to 50%.</p>
-    </div>
-    <div class="member-container2">
-        <h3>Operator Manager</h3>
-        <div class="profile-container">
-            <div id="OM" onclick="managerAbility(event)">
-            <a href="#!/play"><img class="profile" src="./res/nick-nguyen.jpg"></a>
-            </div>
-        </div>
-        <p>Operator Manager grants you an efficient work environment by allowing you to complete more work in less time. This ability will essentially slow down time by 30%.</p>
-    </div>
+    <h2 class="green">Select Your Manager</h2>
+	<p>Before we send you off on your own to fix up the refinery, select a  manager to help you.</p>
+	<div id="manager-wrapper" class="center">
+		<div class="manager-container">
+			<div class="center">
+				<div>
+					<h3 class="yellow">Business Analyst</h3>
+					<div id="BA" class="managerDiv" onclick="managerAbility(event)" >
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="manager-container">
+			<h3 class="yellow">Safety Engineer</h3>
+			<div>
+				<div id="SE" class="managerDiv"  onclick="managerAbility(event)" >
+					
+				</div>
+			</div>
+		</div>
+		<div class="manager-container">
+			<h3 class="yellow">Process Operator</h3>
+			<div>
+				<div id="PO" class="managerDiv"  onclick="managerAbility(event)" >
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<div>
+		<div class="manager-container">
+			<div id="BA-description"  class="managerDescription">
+				<p>It's all about the money! An extra $1000 will be earned for each puzzle completed.</p>
+			</div>
+		</div>
+		<div class="manager-container">
+			<div id="SE-description"  class="managerDescription">
+				<p>Safety first! The chances of losing a life after failing a puzzle reduces to 50%.</p>
+			</div>
+		</div>
+		<div class="manager-container">
+			<div id="PO-description"  class="managerDescription">
+				<p>Efficiency is key! The timer will decrease slower by 20%.</p>
+			</div>
+		</div>
+	</div>
+	<a class="navigateBtn" id="playBtnOnManagerPage" href="#!/play"><h3 class="margin-auto">PLAY!</h3></a>
 </div>
 
-<style>
-.member-container2 {
-    width: 17vw;
-    display: inline-block;
-/*    border: 1vmin white solid;*/
-    vertical-align: top;
-    margin: 2vmin 2vw;
-}
-</style>
-
 <script>
+	// Clear local storage
     localStorage.clear();
 </script>

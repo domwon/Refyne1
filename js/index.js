@@ -18,7 +18,7 @@ myApp.config(function ($routeProvider) {
 		templateUrl: 'html/play.html'
 	})
     
-    .when('/choose', {
+    .when('/play/select-a-manager', {
 		templateUrl: 'html/choose.html'
 	})
 	
@@ -238,7 +238,7 @@ function checkSolution(arr) {
         //Increase level count
         levels++;
         
-        if(manager == "VC") {
+        if(manager == "BA") {
             budget += 6000;
         } else {
             budget += 5000;
@@ -645,9 +645,16 @@ function updateBudget(elementID) {
     }, 200);
 }
 
-//Function to select manager
+// Function to select manager
 function managerAbility(ev) {
     manager = ev.currentTarget.id;
+	// Only display border on selected manager div
+	$(".managerDiv").css({"border": "none", "opacity": 0.5});
+	$(".managerDescription").css({"opacity": 0.5});
+	$("#" + manager).css({"border": "0.75vmin solid white", "opacity": 1});
+	$("#" + manager + "-description").css({"opacity": 1});
+	// Display play btn
+	$("#playBtnOnManagerPage").css("opacity", "1");
 }
 
 // Function to initiate user data

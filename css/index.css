@@ -332,9 +332,6 @@ input[type=range]::-webkit-slider-thumb {
     padding: 2vmin 5vmin 2vmin 5vmin;
     border-radius: 0.5vmin;
 }
-.header {
-    color: #81B29A;
-}
 #grid-screenshot {
     height: 50vmin;
     width: 50vmin;
@@ -363,7 +360,6 @@ input[type=range]::-webkit-slider-thumb {
 .member-container {
     width: 28vw;
     display: inline-block;
-/*    border: 1vmin white solid;*/
     vertical-align: top;
     margin: 2vmin 2vw;
 }
@@ -371,4 +367,46 @@ input[type=range]::-webkit-slider-thumb {
 #footer {
     height: 4vmin;
     margin: 5vmin;
+}
+
+/* Select A Manager */
+.manager-container {
+    width: 17vw;
+	height: 23vh;
+    display: inline-block;
+/*    border: 0.5vmin white solid;*/
+    vertical-align: top;
+    margin: 1vh 2vw;
+	text-align: center;
+}
+#manager-wrapper {
+	text-align: left;
+}
+.managerDiv {
+	height: 15vmin;
+	width: 15vmin;
+	background-color: #E07A5F;
+	border-radius: 0.5vmin;
+	margin: auto;
+	transition-duration: 0.2s;
+}
+.managerDiv:hover {
+	cursor: pointer !important;
+	border: 0.75vmin solid white !important;
+}
+.managerDiv:active {
+	opacity: 0.8;
+}
+.managerDescription {
+	text-align: left;
+}
+.opacity1 {
+	opacity: 1;
+}
+.margin-auto {
+	margin: auto;
+}
+#playBtnOnManagerPage {
+    margin: 0 auto 5vmin auto;
+	opacity: 0;
 }
