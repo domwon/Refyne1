@@ -261,13 +261,12 @@ function checkSolution(arr) {
         if(lives == 0) {
             messageDiv.innerHTML = "<h1 class='red'>Game Over!</h1><br>All lives lost.<br>Levels Completed: " + levels +
             "<br>Budget Remaining: " + budget + "<br>Lives: " + lives;
-            openModal();
+        } else {
+            messageDiv.innerHTML = "<h1 class='red'>Try again!</h1><br>"
+            + lifeStatement + "<br>Final Conditions<br>P: " + 
+            finalPressure + "<br>T: " + finalTemperature + 
+            "<br><br>Required Conditions<br>P: " + outputPressure + "<br>T: " + outputTemperature;
         }
-        
-        messageDiv.innerHTML = "<h1 class='red'>Try again!</h1><br>"
-        + lifeStatement + "<br>Final Conditions<br>P: " + 
-        finalPressure + "<br>T: " + finalTemperature + 
-        "<br><br>Required Conditions<br>P: " + outputPressure + "<br>T: " + outputTemperature;
         openModal();
         
         // Complete reset board
