@@ -4,6 +4,7 @@ var cost = {
     greenPipe: 100,
     heater: 1000
 };
+var manager;
 // AngularJS configuration
 myApp.config(function ($routeProvider) {
 
@@ -15,6 +16,10 @@ myApp.config(function ($routeProvider) {
 
 	.when('/play', {
 		templateUrl: 'html/play.html'
+	})
+    
+    .when('/choose', {
+		templateUrl: 'html/choose.html'
 	})
 	
 	.when('/tutorial', {
@@ -209,6 +214,7 @@ function initiate() {
     var outputSideBox = document.getElementById(outputSideBoxID);
     outputSideBox.classList.add("sideHighlighted");
     outputSideBox.innerHTML = "<h3>Output<br>P: " + outputPressure + "<br>T: " + outputTemperature + "</h3>";
+    
 }
 
 // Function to check if outlet process conditions are satisfied
@@ -228,17 +234,40 @@ function checkSolution(arr) {
             '<br><br>Required Conditions<br>P: ' + outputPressure + '<br>T: ' + outputTemperature;
         openModal();
         userWin = true;
-		
-		// Save data in local storage
-		localStorage.setItem('budget', budget);
-		localStorage.setItem('refineryLives', lives);
+        
+        //Increase level count
+        levels++;
+        
+        if(manager == "VC") {
+            budget += 6000;
+        } else {
+            budget += 5000;
+        }
         
     } else {
         // User lost
-		
-        messageDiv.innerHTML = "<h1 class='red'>Try again!</h1><br>Final Conditions<br>P: " + 
-            finalPressure + "<br>T: " + finalTemperature + 
-            "<br><br>Required Conditions<br>P: " + outputPressure + "<br>T: " + outputTemperature;
+		var lifeStatement = "Accident: Lost a life.<br>"
+        //Decrease lives
+        if(manager == "SE") {
+            var num = Math.floor(Math.random()*2);
+            if(num == 0) {
+                lives--;
+            } else {
+                lifeStatement = "Good safety practices prevented a loss of a life.<br>"
+            }
+        } else {
+            lives--;
+        }
+        if(lives == 0) {
+            messageDiv.innerHTML = "<h1 class='red'>Game Over!</h1><br>All lives lost.<br>Levels Completed: " + levels +
+            "<br>Budget Remaining: " + budget + "<br>Lives: " + lives;
+            openModal();
+        }
+        
+        messageDiv.innerHTML = "<h1 class='red'>Try again!</h1><br>"
+        + lifeStatement + "<br>Final Conditions<br>P: " + 
+        finalPressure + "<br>T: " + finalTemperature + 
+        "<br><br>Required Conditions<br>P: " + outputPressure + "<br>T: " + outputTemperature;
         openModal();
         
         // Complete reset board
@@ -248,10 +277,11 @@ function checkSolution(arr) {
         checkBtn.style.visibility = "hidden";
         resetBtn.style.visibility = "hidden";
         
-		// Save data in local storage
-		localStorage.setItem('budget', budget);
-		localStorage.setItem('refineryLives', lives);
-    }
+    }   
+    // Save data in local storage
+    localStorage.setItem('budget', budget);
+    localStorage.setItem('refineryLives', lives);
+    localStorage.setItem('levelsCompleted', levels);
 }
 
 // Function to completely reset game
@@ -602,7 +632,8 @@ function updateBudget(elementID) {
     }
     
     if (budget < 0) {
-        messageDiv.innerHTML = "<h1 class='red'>Game Over!</h1><br>You ran out of money.";
+        messageDiv.innerHTML = "<h1 class='red'>Game Over!</h1><br>You ran out of money.<br>Levels Completed: " + levels + 
+        "<br>Budget Remaining: 0<br>Lives: " + lives;
         openModal();
         budget = 5000;
         completeReset();
@@ -615,14 +646,23 @@ function updateBudget(elementID) {
     }, 200);
 }
 
+//Function to select manager
+function managerAbility(ev) {
+    manager = ev.currentTarget.id;
+}
+
 // Function to initiate user data
 function initiateData() {
 	// If data doesn't exist, set it with defaults
 	if (window.localStorage.getItem('refineryLives') === null) {
 		window.localStorage.setItem('budget', 5000);
 		window.localStorage.setItem('refineryLives', 3);
+        window.localStorage.setItem('levelsCompleted', 0);
+        window.localStorage.setItem('manager', manager);
 	} 
-	// Pass data onto JS  global variables
+	// Pass data onto JS global variables
 	budget = parseInt(window.localStorage.budget);
 	lives = parseInt(window.localStorage.refineryLives);
+    levels = parseInt(window.localStorage.levelsCompleted);
 }
+
