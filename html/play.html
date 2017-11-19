@@ -9,6 +9,8 @@
     var userWin = false;
     var budget;
 	var lives;
+    var timerOut = false;
+    var pause = false;
 	initiateData();
 
     // Random generator for input and output
@@ -45,18 +47,49 @@
     // Assign HTML elements into variables 
     var checkBtn = document.getElementById("checkBtn");
     var resetBtn = document.getElementById("resetBtn");
+    var closeBtn = document.getElementById("closeBtn");
+    var playAgainBtn = document.getElementById("playAgainBtn");
     var messageDiv = document.getElementById("messageDiv");
     var bluePipeContainer = document.getElementById("bluePipeContainer");
     var greenPipeContainer = document.getElementById("greenPipeContainer");
     var heaterContainer = document.getElementById("heaterContainer");
     var container = document.getElementById("powerup-bar");
     var budgetEl = document.getElementById("budget");
+    var livesEl = document.getElementById("lives");
+    var levelsEl = document.getElementById("levels");
     budgetEl.innerHTML = budget;
+    livesEl.innerHTML = lives;
+    levelsEl.innerHTML = levels + 1;
+    
+    var timer = document.getElementById('timerDiv');
+    var timerUnit = document.getElementById('timerUnit');
+    var timerSpeed = window.localStorage.getItem('timerSpeed');
+	var secLimit = 60;
+	var sec = 0;
+	var myInterval = window.setInterval(update, timerSpeed);
     
 </script>
 <div id="titleDiv">
-    <div id="title">REFYNE | Play</div>
-    <a class="navigateBtn" href="#!/"><h3>HOME</h3></a>
+    <div id="title">
+        <h1 class="margin-none">REFYNE | Play</h1>
+        <span class="stat"></span>
+        <span class="stat">
+            <h3 class="inline-block margin-auto">LEVEL</h3>
+            <h3 id="levels" class="inline-block margin-auto"></h3>
+        </span>
+        <span class="stat">
+            <h3 id="timerDiv" class="inline-block margin-auto"></h3>
+            <h3 id="timerUnit" class="inline-block margin-auto">hrs</h3>
+        </span>
+        <span class="stat">
+            <h3 class="inline-block margin-auto">&#36;</h3>
+            <h3 id="budget" class="inline-block margin-auto"></h3>
+        </span>
+        <span class="stat">
+            <h3 class="inline-block margin-auto">&#10084;</h3>
+            <h3 id="lives" class="inline-block margin-auto"></h3>
+        </span>
+    </div>
 </div>
 
 <div class="screen-section">
@@ -115,10 +148,6 @@
 <div class="screen-section">
 
     <div id="stats-btn-wrapper" class="wrapper">
-        <div>
-            <h3 class="inline-block">BUDGET: $</h3>
-            <h3 id="budget" class="inline-block"></h3>
-        </div>
         <div class="center">
             <div id="resetBtn" class="element" onclick="completeReset();">
                 <div id="undoSymbol">&#9850;</div>
@@ -135,8 +164,9 @@
 <div id="myModal" class="modal">
     <!-- Modal content -->
     <div class="modal-content">
-        <span class="close" onclick="closeModal();">&times;</span>
         <div id="messageDiv"></div>
+        <div id="closeBtn" class="close" onclick="closeModal();">OK</div>
+        <div id="playAgainBtn" class="close" onclick="playAgain();">PLAY AGAIN</div>
     </div>
 </div>
 

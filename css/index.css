@@ -64,21 +64,39 @@ h3 {
 .red {
     color: #E07A5F;
 }
+.red-bg {
+    background-color: #E07A5F;
+}
 .green {
     color: #81B29A;
+}
+.green-bg {
+    background-color: #81B29A;
 }
 .white {
     color: #DAF0EF;
     color: rgb(218, 240, 239);
 }
+.white-bg {
+    background-color: #DAF0EF;
+}
 .grey {
     color: #767B91;
+}
+.grey-bg {
+    background-color: #767B91;
 }
 .yellow {
     color: #F2CC8F;
 }
+.yellow-bg {
+    background-color: #F2CC8F;
+}
 .blue {
     color: #2A324B;
+}
+.blue-bg {
+    background-color: #2A324B;
 }
 /* Splash */
 #refyneSplash {
@@ -254,16 +272,27 @@ h3 {
 }
 /* The Close Button */
 .close {
-    color: #DAF0EF;
-    float: right;
-    font-size: 28px;
+    background-color: #DAF0EF;
+    color: #2A324B;
+    width: 13vw;
+    padding: 1vmin;
+    margin: 2vmin auto 0 auto;
+    font-size: 3vmin;
     font-weight: bold;
+    border-radius: 0.5vmin;
+}
+#closeBtn {
+    display: none;
+}
+#playAgainBtn {
+    display: none;
 }
 .close:hover, .close:focus {
-    color: #000;
+    opacity: 0.8;
     text-decoration: none;
     cursor: pointer;
 }
+
 
 /* The Heater Slider */
 #heaterControlsRightSide, #heaterControlsLeftSide {
@@ -319,7 +348,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 /* Budget */
-#budget {
+#budget, #lives {
     transition: opacity 0.2s ease-in-out;
 }
 
@@ -385,7 +414,6 @@ input[type=range]::-webkit-slider-thumb {
 .managerDiv {
 	height: 15vmin;
 	width: 15vmin;
-	background-color: #E07A5F;
 	border-radius: 0.5vmin;
 	margin: auto;
 	transition-duration: 0.2s;
@@ -400,6 +428,21 @@ input[type=range]::-webkit-slider-thumb {
 .managerDescription {
 	text-align: left;
 }
+.manager-profile {
+    border-radius: 100%;
+    height: 10vmin;
+    width: 10vmin;
+    margin: auto;
+}
+#BA-profile {
+    background-color: yellow;
+}
+#SE-profile {
+    background-color: yellow;
+}
+#PO-profile {
+    background-color: yellow;
+}
 .opacity1 {
 	opacity: 1;
 }
@@ -409,4 +452,13 @@ input[type=range]::-webkit-slider-thumb {
 #playBtnOnManagerPage {
     margin: 0 auto 5vmin auto;
 	opacity: 0;
+}
+.margin-none {
+    margin: 0;
+}
+
+.stat {
+    width: 12.5vw;
+/*    border: 0.5vmin white solid;*/
+    color: #DAF0EF;
 }

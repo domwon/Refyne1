@@ -218,7 +218,8 @@ function initiate() {
 }
 
 // Function to check if outlet process conditions are satisfied
-function checkSolution(arr) {
+function checkSolution() {
+    pause = true; // Pause timer
     var finalPressure = inputPressure;
     var finalTemperature = inputTemperature;
     for (var i = 0; i < arrPlaced.length; i++) {
@@ -229,44 +230,104 @@ function checkSolution(arr) {
     if (finalPressure == outputPressure && finalTemperature == outputTemperature) {
         // User won
         
-        messageDiv.innerHTML =  '<h1 class="green">You won!</h1><br>Final Conditions<br>P: ' + 
-            finalPressure + "<br>T: " + finalTemperature + 
-            '<br><br>Required Conditions<br>P: ' + outputPressure + '<br>T: ' + outputTemperature;
+        // Increase level count
+        levels++;
+        
+        var timeBonus = Math.round(secLimit - sec)*25;
+        
+        var budgetAdditionMSG = "Completion payment: $3000<br>Time bonus: $" + timeBonus.toString();
+        
+        // Manager boost
+        if (manager == "BA") {
+            budget += (4000 + timeBonus);
+            budgetAdditionMSG += "<br>Manager bonus: $1000";
+        } else {
+            budget += (3000 + timeBonus);
+        }
+        
+        // Add new budget statement
+        budgetAdditionMSG += "<br><br><p class='green'>New budget: $" + budget + '</p>';
+        
+        messageDiv.innerHTML =  "<h1 class='green''>Level " + levels + " Complete!</h1>" +
+            budgetAdditionMSG;
+        closeBtn.style.display = "block"; // Display OK btn
+        closeBtn.innerHTML = "NEXT GAME"; // Change btn msg
         openModal();
         userWin = true;
         
-        //Increase level count
-        levels++;
-        
-        if(manager == "BA") {
-            budget += 6000;
-        } else {
-            budget += 5000;
-        }
-        
     } else {
         // User lost
-		var lifeStatement = "Accident: Lost a life.<br>"
-        //Decrease lives
-        if(manager == "SE") {
+        var pressureMSG = "";
+        var tempMSG = "";
+        
+        // Determine inaccurate condition
+        if (finalPressure > outputPressure) {
+            pressureMSG = "Excessive pressure<br>";
+        } else if (finalPressure < outputPressure) {
+            pressureMSG = "Inadequate pressure<br>";
+        }
+        if (finalTemperature > outputTemperature) {
+            tempMSG = "Excessive temperature";
+        } else if (finalTemperature < outputTemperature) {
+            tempMSG = "Inadequate temperature";
+        }
+        
+        var primaryLostMSG = "Game Over!";
+        var secondaryLostMSG = "";
+        var accidentMSG = "<h3>Cause of Accident</h3>" + pressureMSG + tempMSG;
+		var lifeMSG;
+        var lifeMSGColor;
+        
+        // Decrease lives, 
+        if (manager == "SE") {
             var num = Math.floor(Math.random()*2);
-            if(num == 0) {
+            if (num == 0) {
                 lives--;
+                lifeMSG = "Accident resulted in losing a life.";
+                lifeMSGColor = "yellow";
             } else {
-                lifeStatement = "Good safety practices prevented a loss of a life.<br>"
+                lifeMSG = "Good safety practices prevented a loss of a life.<br>"
+                lifeMSGColor = "green";
             }
         } else {
             lives--;
+            lifeMSG = "Accident resulted in losing a life.";
+            lifeMSGColor = "yellow";
         }
-        if(lives == 0) {
-            messageDiv.innerHTML = "<h1 class='red'>Game Over!</h1><br>All lives lost.<br>Levels Completed: " + levels +
-            "<br>Budget Remaining: " + budget + "<br>Lives: " + lives;
-        } else {
-            messageDiv.innerHTML = "<h1 class='red'>Try again!</h1><br>"
-            + lifeStatement + "<br>Final Conditions<br>P: " + 
-            finalPressure + "<br>T: " + finalTemperature + 
-            "<br><br>Required Conditions<br>P: " + outputPressure + "<br>T: " + outputTemperature;
+        
+        if (budget < 0) { // User ran out of money
+            
+            lifeMSG = "Ran out of money.";
+            lifeMSGColor = "red";
+            accidentMSG = "";
+            secondaryLostMSG = "Levels Completed: " + levels + 
+                "<br>Budget Remaining: $" + budget + "<br>Lives: " + lives;
+            playAgainBtn.style.display = "block"; // Display PLAY AGAIN btn
+        
+        } else if (timerOut) { // User ran out of time
+            
+            lifeMSG = "Ran out of time.";
+            lifeMSGColor = "red";
+            accidentMSG = "";
+            secondaryLostMSG = "Levels Completed: " + levels + 
+                "<br>Budget Remaining: $" + budget + "<br>Lives: " + lives;
+            playAgainBtn.style.display = "block"; // Display PLAY AGAIN btn
+        
+        } else if (lives == 0) { // User ran out of lives
+            
+            lifeMSG = "All lives lost.";
+            lifeMSGColor = "red";
+            secondaryLostMSG = "<br><br>Levels Completed: " + levels + 
+                "<br>Budget Remaining: $" + budget + "<br>Lives: " + lives;
+            playAgainBtn.style.display = "block"; // Display PLAY AGAIN btn
+        
+        } else { // User did not have matched conditions
+            
+            primaryLostMSG = "Try Again!";
+            closeBtn.style.display = "block"; // Display OK btn
         }
+        
+        messageDiv.innerHTML = "<h1 class='red'>" + primaryLostMSG + "</h1><h3 class='" + lifeMSGColor + "'>" + lifeMSG + "</h3>" + accidentMSG + secondaryLostMSG;
         openModal();
         
         // Complete reset board
@@ -276,7 +337,10 @@ function checkSolution(arr) {
         checkBtn.style.visibility = "hidden";
         resetBtn.style.visibility = "hidden";
         
-    }   
+        // Update lives in HTML
+        livesEl.innerHTML = lives;
+        
+    }
     // Save data in local storage
     localStorage.setItem('budget', budget);
     localStorage.setItem('refineryLives', lives);
@@ -551,15 +615,28 @@ function openModal() {
     modal.style.display = "block";
 }
 
-// Close the modal when the user clicks on the x btn
+// Close the modal when the user clicks on the OK btn
 function closeModal() {
     modal.style.display = "none";
     if (userWin) {
         location.reload();
     }
+    closeBtn.style.display = "none"; // Hide OK btn
     userWin = false;
     outputReached = false;
+    pause = false;
 }
+
+// Close the modal when the user clicks on the PLAY AGAIN btn
+function playAgain() {
+    modal.style.display = "none";
+    playAgainBtn.style.display = "none"; // Hide PLAY AGAIN btn
+    userWin = false;
+    outputReached = false;
+    window.location.href = "#!/play/select-a-manager";
+    pause = false;
+}
+
 
 function heaterSetting(ev) {
     var parentNodeId = ev.parentElement.id;
@@ -631,8 +708,7 @@ function updateBudget(elementID) {
     }
     
     if (budget < 0) {
-        messageDiv.innerHTML = "<h1 class='red'>Game Over!</h1><br>You ran out of money.<br>Levels Completed: " + levels + 
-        "<br>Budget Remaining: 0<br>Lives: " + lives;
+        checkSolution();
         openModal();
         budget = 5000;
         completeReset();
@@ -642,7 +718,9 @@ function updateBudget(elementID) {
     setTimeout(function() {
         budgetEl.innerHTML = budget;
         budgetEl.style.opacity = 1;
-    }, 200);
+    }, 150);
+    
+    localStorage.setItem('budget', budget);
 }
 
 // Function to select manager
@@ -665,10 +743,50 @@ function initiateData() {
 		window.localStorage.setItem('refineryLives', 3);
         window.localStorage.setItem('levelsCompleted', 0);
         window.localStorage.setItem('manager', manager);
+        
+        // Adjust timer speed for PO manager
+        if (manager === "PO") {
+            window.localStorage.setItem('timerSpeed', 120);
+        } else {
+            window.localStorage.setItem('timerSpeed', 100);
+        }
 	} 
 	// Pass data onto JS global variables
 	budget = parseInt(window.localStorage.budget);
 	lives = parseInt(window.localStorage.refineryLives);
     levels = parseInt(window.localStorage.levelsCompleted);
+    timerSpeed = parseInt(window.localStorage.timerSpeed);
 }
 
+// Updates time and transitions
+function update() {
+    if (!pause) {
+        // Increase time by 0.1 seconds
+        sec += 0.1;
+
+        var secRemaining = secLimit - sec;
+
+        timer.innerHTML = (Math.round(secRemaining*10)/10).toFixed(1);
+
+        // Change timer color based on time remaining
+        if (secRemaining > 30) {
+            timer.style.color = "#DAF0EF";
+            timerUnit.style.color = "#DAF0EF";
+        }                   
+        else if (secRemaining <= 30 && secRemaining > 10) {
+            timer.style.color = "#F2CC8F";
+            timerUnit.style.color = "#F2CC8F";
+        }
+        else if (secRemaining <= 10) {
+            timer.style.color = "#E07A5F";
+            timerUnit.style.color = "#E07A5F";
+        }
+
+        // Signal game over if time is up
+        if (sec >= secLimit) {
+            timerOut = true;
+            window.clearInterval(myInterval);
+            checkSolution();
+        }
+    }
+}
