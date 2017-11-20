@@ -11,7 +11,6 @@
 	var lives;
     var timerOut = false;
     var pause = false;
-	initiateData();
 
     // Random generator for input and output
     var temp;
@@ -57,9 +56,9 @@
     var budgetEl = document.getElementById("budget");
     var livesEl = document.getElementById("lives");
     var levelsEl = document.getElementById("levels");
-    budgetEl.innerHTML = budget;
-    livesEl.innerHTML = lives;
-    levelsEl.innerHTML = levels + 1;
+    var managerEl = document.getElementById("manager");
+    
+    initiateData();
     
     var timer = document.getElementById('timerDiv');
     var timerUnit = document.getElementById('timerUnit');
@@ -72,7 +71,9 @@
 <div id="titleDiv">
     <div id="title">
         <h1 class="margin-none">REFYNE | Play</h1>
-        <span class="stat"></span>
+        <span class="stat">
+            <h3 id="manager">&#9865;</h3>
+        </span>
         <span class="stat">
             <h3 class="inline-block margin-auto">LEVEL</h3>
             <h3 id="levels" class="inline-block margin-auto"></h3>
@@ -90,6 +91,7 @@
             <h3 id="lives" class="inline-block margin-auto"></h3>
         </span>
     </div>
+    <a class="navigateBtn" href="#!/"><h3>HOME</h3></a>
 </div>
 
 <div class="screen-section">
@@ -147,7 +149,7 @@
 
 <div class="screen-section">
 
-    <div id="stats-btn-wrapper" class="wrapper">
+    <div id="action-btn-wrapper" class="wrapper">
         <div class="center">
             <div id="resetBtn" class="element" onclick="completeReset();">
                 <div id="undoSymbol">&#9850;</div>
@@ -170,4 +172,11 @@
     </div>
 </div>
 
-<script>initiate();</script>
+<script>
+    initiate();
+    
+    // Clear interval upon reload or back button press
+    window.onbeforeunload = function (myInterval) {
+        window.clearInterval(myInterval);
+    } 
+</script>

@@ -248,8 +248,7 @@ function checkSolution() {
         // Add new budget statement
         budgetAdditionMSG += "<br><br><p class='green'>New budget: $" + budget + '</p>';
         
-        messageDiv.innerHTML =  "<h1 class='green''>Level " + levels + " Complete!</h1>" +
-            budgetAdditionMSG;
+        messageDiv.innerHTML =  "<h1 class='green''>Level " + levels + " Complete!</h1>" + "<p>" + budgetAdditionMSG + "</p>";
         closeBtn.style.display = "block"; // Display OK btn
         closeBtn.innerHTML = "NEXT GAME"; // Change btn msg
         openModal();
@@ -274,7 +273,7 @@ function checkSolution() {
         
         var primaryLostMSG = "Game Over!";
         var secondaryLostMSG = "";
-        var accidentMSG = "<h3>Cause of Accident</h3>" + pressureMSG + tempMSG;
+        var accidentMSG = "<h3>Cause of Accident</h3><p>" + pressureMSG + tempMSG + "</p>";
 		var lifeMSG;
         var lifeMSGColor;
         
@@ -303,6 +302,7 @@ function checkSolution() {
             secondaryLostMSG = "Levels Completed: " + levels + 
                 "<br>Budget Remaining: $" + budget + "<br>Lives: " + lives;
             playAgainBtn.style.display = "block"; // Display PLAY AGAIN btn
+            window.clearInterval(myInterval);
         
         } else if (timerOut) { // User ran out of time
             
@@ -312,6 +312,7 @@ function checkSolution() {
             secondaryLostMSG = "Levels Completed: " + levels + 
                 "<br>Budget Remaining: $" + budget + "<br>Lives: " + lives;
             playAgainBtn.style.display = "block"; // Display PLAY AGAIN btn
+            window.clearInterval(myInterval);
         
         } else if (lives == 0) { // User ran out of lives
             
@@ -320,6 +321,7 @@ function checkSolution() {
             secondaryLostMSG = "<br><br>Levels Completed: " + levels + 
                 "<br>Budget Remaining: $" + budget + "<br>Lives: " + lives;
             playAgainBtn.style.display = "block"; // Display PLAY AGAIN btn
+            window.clearInterval(myInterval);
         
         } else { // User did not have matched conditions
             
@@ -327,7 +329,7 @@ function checkSolution() {
             closeBtn.style.display = "block"; // Display OK btn
         }
         
-        messageDiv.innerHTML = "<h1 class='red'>" + primaryLostMSG + "</h1><h3 class='" + lifeMSGColor + "'>" + lifeMSG + "</h3>" + accidentMSG + secondaryLostMSG;
+        messageDiv.innerHTML = "<h1 class='red'>" + primaryLostMSG + "</h1><h3 class='" + lifeMSGColor + "'>" + lifeMSG + "</h3>" + accidentMSG + "<p>" + secondaryLostMSG + "</p>";
         openModal();
         
         // Complete reset board
@@ -445,8 +447,7 @@ function drop(ev) {
             lastPlaced = arrPlaced.length - 1;
             arrPlaced[lastPlaced].highlight = false;
             
-            console.log("%cSUCCESS: Placed " + newElement.id + 
-                        " in Box " + currBox.id, "color:green");
+            console.log("%cSUCCESS: Placed " + newElement.id + " in Box " + currBox.id, "color:green");
             
             if (currBox.id === output.id) {
                 source = getReplacedImgLink(lastPlaced);
@@ -733,6 +734,7 @@ function managerAbility(ev) {
 	$("#" + manager + "-description").css({"opacity": 1});
 	// Display play btn
 	$("#playBtnOnManagerPage").css("opacity", "1");
+    window.localStorage.setItem('manager', manager);
 }
 
 // Function to initiate user data
@@ -746,7 +748,7 @@ function initiateData() {
         
         // Adjust timer speed for PO manager
         if (manager === "PO") {
-            window.localStorage.setItem('timerSpeed', 120);
+            window.localStorage.setItem('timerSpeed', 125);
         } else {
             window.localStorage.setItem('timerSpeed', 100);
         }
@@ -756,6 +758,22 @@ function initiateData() {
 	lives = parseInt(window.localStorage.refineryLives);
     levels = parseInt(window.localStorage.levelsCompleted);
     timerSpeed = parseInt(window.localStorage.timerSpeed);
+    manager = window.localStorage.manager;
+    
+    // Pass data to HTML page
+    budgetEl.innerHTML = budget;
+    livesEl.innerHTML = lives;
+    levelsEl.innerHTML = levels + 1;
+    
+    // Change color of manager type
+    if (manager === "BA") {
+        managerEl.style.color = "#E07A5F";
+    } else if (manager === "SE") {
+        managerEl.style.color = "#F2CC8F";
+    } else {
+        managerEl.style.color = "#81B29A";
+    }
+    
 }
 
 // Updates time and transitions
