@@ -176,7 +176,9 @@
     initiate();
     
     // Clear interval upon reload or back button press
-    window.onbeforeunload = function (myInterval) {
+    window.addEventListener("beforeunload", function (e) {
         window.clearInterval(myInterval);
-    } 
+        console.log("Unload");
+        return null;
+    });
 </script>
